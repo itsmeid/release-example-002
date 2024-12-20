@@ -1,0 +1,84 @@
+{
+  "name": "release-example-002",
+  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+  "version": "1.0.0",
+  "author": "itsmeid",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itsmeid/release-example-002.git"
+  },
+  "homepage": "https://github.com/itsmeid/release-example-002#readme",
+  "bugs": {
+    "url": "https://github.com/itsmeid/release-example-002/issues"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": ["development", "testing", "boilerplate"],
+  "types": "./dist/index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "files": ["./dist"],
+  "type": "module",
+  "scripts": {
+    "prepare": "bunx husky",
+    "prepublishOnly": "bun check:type && bun check:spec && bun out:docs && bun out:dist",
+    "ci": "bun install --frozen-lockfile",
+    "reinstall": "bun clean:deps && bun install",
+    "clean": "bun clean:deps && bun clean:docs && bun clean:dist && bun clean:codecov",
+    "clean:codecov": "rm -rf coverage",
+    "clean:deps": "rm -rf node_modules && rm -f bun.lockb",
+    "clean:dist": "rm -rf dist",
+    "clean:docs": "rm -rf docs",
+    "check": "bun check:type && bun check:spec && bun check:format && bun check:lint",
+    "check:format": "bunx biome check --linter-enabled=false",
+    "check:lint": "bunx biome lint",
+    "check:spec": "bun test --coverage",
+    "check:type": "bunx tsc --noEmit --extendedDiagnostics",
+    "out": "bun out:dist && bun out:codecov && bun out:docs",
+    "out:codecov": "bun test --coverage --coverage-reporter=text --coverage-reporter=lcov --reporter=junit --reporter-outfile=coverage/reporter.xml",
+    "out:dist": "rm -rf dist && bunx tsc -p ./tsconfig.dist.json",
+    "out:docs": "bunx typedoc && cp docs/README.md README.md"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.13",
+    "minimist": "0.0.8",
+    "set-value": "^4.1.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@commitlint/cli": "19.6.0",
+    "@commitlint/config-conventional": "19.6.0",
+    "@commitlint/format": "19.5.0",
+    "@semantic-release/changelog": "6.0.3",
+    "@types/bun": "latest",
+    "axios": "0.21.1",
+    "chalk": "5.4.1",
+    "husky": "^9.1.7",
+    "semantic-release": "24.2.0",
+    "typedoc": "^0.27.6",
+    "typedoc-plugin-markdown": "4.3.2",
+    "typescript": "5.5.2"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0"
+  },
+  "exports": {
+    ".": {
+      "bun": "./dist/index.js",
+      "default": "./dist/index.js",
+      "import": "./dist/index.js",
+      "node": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./*": {
+      "types": "./dist/*/index.d.ts",
+      "import": "./dist/*/index.js",
+      "require": "./dist/*/index.js",
+      "bun": "./dist/*/index.js",
+      "default": "./dist/*/index.js"
+    }
+  }
+}
