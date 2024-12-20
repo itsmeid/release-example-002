@@ -1,0 +1,167 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - "*"
+  pull_request:
+    branches:
+      - "*"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  commit:
+    name: Commit check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Harden runner
+        uses: step-security/harden-runner@446798f8213ac2e75931c1b0769676d927801858 # v2
+        with:
+          disable-sudo: true
+          egress-policy: block
+          allowed-endpoints: >
+            bun.sh:443
+            github.com:443
+            objects.githubusercontent.com:443
+            registry.npmjs.org:443
+
+      - name: Git checkout
+        if: github.event_name == 'push'
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          fetch-depth: 1
+          sparse-checkout: .
+
+      - name: Git checkout (full-history)
+        if: github.event_name == 'pull_request'
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          fetch-depth: 0
+          sparse-checkout: .
+          ref: ${{ github.head_ref }}
+
+      - name: Set up bun@latest
+        uses: oven-sh/setup-bun@4bc047ad259df6fc24a6c9b0f9a0cb08cf17fbe5 # v2
+
+      - name: Install dependencies
+        run: bun ci
+
+      - name: Run check - Push commit
+        if: github.event_name == 'push'
+        run: bunx --bun commitlint --last --verbose
+
+      - name: Run check - PR commit(s)
+        if: github.event_name == 'pull_request'
+        run: bunx --bun commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
+
+  format:
+    name: Format check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Harden runner
+        uses: step-security/harden-runner@446798f8213ac2e75931c1b0769676d927801858 # v2
+        with:
+          disable-sudo: true
+          egress-policy: block
+          allowed-endpoints: >
+            bun.sh:443
+            github.com:443
+            objects.githubusercontent.com:443
+            registry.npmjs.org:443
+
+      - name: Git checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+
+      - name: Set up bun@latest
+        uses: oven-sh/setup-bun@4bc047ad259df6fc24a6c9b0f9a0cb08cf17fbe5 # v2
+
+      - name: Install dependencies
+        run: bun ci
+
+      - name: Run check
+        run: bunx biome ci --reporter=github --no-errors-on-unmatched
+
+  spec:
+    name: Spec check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Harden runner
+        uses: step-security/harden-runner@446798f8213ac2e75931c1b0769676d927801858 # v2
+        with:
+          disable-sudo: true
+          egress-policy: block
+          allowed-endpoints: >
+            bun.sh:443
+            cli.codecov.io:443
+            github.com:443
+            ingest.codecov.io:443
+            keybase.io:443
+            objects.githubusercontent.com:443
+            registry.npmjs.org:443
+            storage.googleapis.com:443
+
+      - name: Git checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+
+      - name: Set up bun@latest
+        uses: oven-sh/setup-bun@4bc047ad259df6fc24a6c9b0f9a0cb08cf17fbe5 # v2
+
+      - name: Install dependencies
+        run: bun ci
+
+      - name: Run check
+        run: bun test --coverage --coverage-reporter=lcov --reporter=junit --reporter-outfile=junit.xml
+
+      - name: Upload lcov
+        uses: codecov/codecov-action@1e68e06f1dbfde0e4cefc87efeba9e4643565303 # v5
+        with:
+          fail_ci_if_error: true
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Upload test result
+        uses: codecov/test-results-action@9739113ad922ea0a9abb4b2c0f8bf6a4aa8ef820 # v1
+        with:
+          fail_ci_if_error: true
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+  type:
+    name: Type check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Harden runner
+        uses: step-security/harden-runner@446798f8213ac2e75931c1b0769676d927801858 # v2
+        with:
+          disable-sudo: true
+          egress-policy: block
+          allowed-endpoints: >
+            api.github.com:443
+            bun.sh:443
+            cdn.fwupd.org:443
+            github.com:443
+            objects.githubusercontent.com:443
+            raw.githubusercontent.com:443
+            registry.npmjs.org:443
+
+      - name: Git checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+
+      - name: Set up bun@latest
+        uses: oven-sh/setup-bun@4bc047ad259df6fc24a6c9b0f9a0cb08cf17fbe5 # v2
+
+      - name: Install dependencies
+        run: bun ci
+
+      - name: Prepare reviewdog
+        uses: reviewdog/action-setup@v1
+
+      - name: Run check
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPORTER: ${{ github.event_name == 'push' && 'github-check' || 'github-pr-review' }}
+        run: bunx tsc --noEmit | reviewdog -f=tsc -name=tsc -level=error -fail-level=error -reporter=$REPORTER -tee
