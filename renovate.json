@@ -1,0 +1,49 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:best-practices",
+    "security:openssf-scorecard",
+    "customManagers:biomeVersions",
+    ":semanticCommits",
+    ":semanticCommitScopeDisabled"
+  ],
+  "schedule": ["at any time"],
+  "prHourlyLimit": 10,
+  "labels": ["renovate"],
+  "dependencyDashboardLabels": ["others"],
+  "dependencyDashboardOSVVulnerabilitySummary": "all",
+  "osvVulnerabilityAlerts": true,
+  "vulnerabilityAlerts": {
+    "addLabels": ["security"],
+    "groupName": null,
+    "schedule": [],
+    "dependencyDashboardApproval": false,
+    "minimumReleaseAge": null,
+    "rangeStrategy": "pin",
+    "commitMessageSuffix": "[SECURITY]",
+    "additionalBranchPrefix": "security/",
+    "branchTopic": "{{{datasource}}}-{{{depNameSanitized}}}-vulnerability",
+    "prCreation": "immediate",
+    "vulnerabilityFixStrategy": "lowest"
+  },
+
+  "packageRules": [
+    {
+      "matchFileNames": ["**/bun.lock?(b)", "**/package.json"],
+      "additionalBranchPrefix": "npm/",
+      "addLabels": ["dependency"],
+      "semanticCommitType": "build",
+      "commitMessageExtra": "from {{#if currentDigestShort}}{{{currentDigestShort}}}{{else}}{{{currentValue}}}{{/if}} to {{#if newDigestShort}}{{{newDigestShort}}}{{else}}{{{newValue}}}{{/if}}"
+    },
+    {
+      "matchFileNames": [
+        "**/{workflow-templates,.github,.gitea,.forgejo}/{workflows,actions}/*.yaml",
+        "**/action.yaml"
+      ],
+      "additionalBranchPrefix": "ci/",
+      "addLabels": ["dependency", "workflow"],
+      "semanticCommitType": "ci",
+      "commitMessageExtra": "from {{#if currentDigestShort}}{{{currentDigestShort}}}{{else}}{{{currentValue}}}{{/if}} to {{#if newDigestShort}}{{{newDigestShort}}}{{else}}{{{newValue}}}{{/if}}"
+    }
+  ]
+}
