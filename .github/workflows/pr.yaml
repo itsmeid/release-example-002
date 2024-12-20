@@ -1,0 +1,108 @@
+name: Pull Request
+
+on:
+  pull_request_target:
+    branches:
+      - "*"
+    types:
+      - opened
+      - edited
+      - synchronize
+      - reopened
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  title:
+    name: Title check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Harden runner
+        uses: step-security/harden-runner@446798f8213ac2e75931c1b0769676d927801858 # v2
+        with:
+          disable-sudo: true
+          egress-policy: block
+          allowed-endpoints: >
+            api.github.com:443
+            bun.sh:443
+            github.com:443
+            objects.githubusercontent.com:443
+            registry.npmjs.org:443
+
+      - name: Git checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          fetch-depth: 1
+          sparse-checkout: .
+
+      - name: Set up bun@latest
+        uses: oven-sh/setup-bun@4bc047ad259df6fc24a6c9b0f9a0cb08cf17fbe5 # v2
+
+      - name: Install dependencies
+        run: bun ci
+
+      - name: Run check
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: printenv "PR_TITLE" | bunx commitlint
+
+  dependency:
+    name: Dependency check
+    if: github.event.action == 'edited'
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Harden runner
+        uses: step-security/harden-runner@446798f8213ac2e75931c1b0769676d927801858 # v2
+        with:
+          disable-sudo: true
+          egress-policy: block
+          allowed-endpoints: >
+            api.github.com:443
+            api.securityscorecards.dev:443
+            github.com:443
+
+      - name: Git checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+
+      - name: Run check
+        uses: actions/dependency-review-action@v4
+        with:
+          allow-licenses: MIT, ISC, CC0, Apache-2.0, BSD-3-Clause
+          comment-summary-in-pr: true
+          warn-on-openssf-scorecard-level: 5
+
+  format-review:
+    name: Format review
+    if: github.event.action == 'edited'
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Harden runner
+        uses: step-security/harden-runner@446798f8213ac2e75931c1b0769676d927801858 # v2
+        with:
+          disable-sudo: true
+          egress-policy: block
+          allowed-endpoints: >
+            api.github.com:443
+            github.com:443
+            objects.githubusercontent.com:443
+            raw.githubusercontent.com:443
+
+      - name: Git checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+
+      - name: Run review
+        uses: mongolyy/reviewdog-action-biome@aed3609ddbb255fb7be62299245943d9cdda3225 # v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+          fail_on_error: false
