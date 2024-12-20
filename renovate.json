@@ -1,0 +1,74 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:best-practices",
+    "security:openssf-scorecard",
+    "customManagers:biomeVersions",
+    ":semanticCommits",
+    ":semanticCommitScopeDisabled",
+    ":gitSignOff"
+  ],
+  "labels": ["renovate"],
+  "schedule": ["at any time"],
+  "prHourlyLimit": 10,
+  "recreateWhen": "always",
+  "rebaseWhen": "behind-base-branch",
+  "dependencyDashboardTitle": "Renovate Dependency Dashboard",
+  "dependencyDashboardLabels": ["renovate"],
+  "dependencyDashboardOSVVulnerabilitySummary": "all",
+  "osvVulnerabilityAlerts": true,
+  "commitBodyTable": true,
+  "commitMessageExtra": "from {{#if currentDigestShort}}{{{currentDigestShort}}}{{else}}{{{currentValue}}}{{/if}} to {{#if newDigestShort}}{{{newDigestShort}}}{{else}}{{{newValue}}}{{/if}}",
+  "vulnerabilityAlerts": {
+    "addLabels": ["dependency", "security"],
+    "groupName": null,
+    "schedule": ["at any time"],
+    "dependencyDashboardApproval": false,
+    "minimumReleaseAge": null,
+    "rangeStrategy": "pin",
+    "prCreation": "immediate",
+    "vulnerabilityFixStrategy": "lowest",
+    "additionalBranchPrefix": "security/",
+    "branchTopic": "{{{datasource}}}-{{{depNameSanitized}}}",
+    "commitMessageTopic": "{{{depType}}} {{{depName}}}",
+    "commitMessageSuffix": "due to `{{{vulnerabilitySeverity}}}` vulnerability",
+    "packageRules": [
+      {
+        "matchFileNames": ["**/bun.lock?(b)", "**/package.json"],
+        "matchDepTypes": ["dependencies"],
+        "semanticCommitType": "fix"
+      }
+    ]
+  },
+  "packageRules": [
+    {
+      "matchFileNames": ["**/bun.lock?(b)", "**/package.json"],
+      "additionalBranchPrefix": "{{{datasource}}}/",
+      "addLabels": ["dependency"],
+      "semanticCommitType": "build"
+    },
+    {
+      "matchDepTypes": ["dependencies"],
+      "commitMessageTopic": "dependency {{{depName}}}"
+    },
+    {
+      "matchDepTypes": ["devDependencies"],
+      "commitMessageTopic": "dev-dependency {{{depName}}}"
+    },
+    {
+      "matchDepTypes": ["peerDependencies"],
+      "commitMessageTopic": "peer-dependency {{{depName}}}"
+    },
+    {
+      "matchFileNames": [
+        "**/{workflow-templates,.github,.gitea,.forgejo}/{workflows,actions}/*.yaml",
+        "**/action.yaml"
+      ],
+      "additionalBranchPrefix": "{{{datasource}}}/",
+      "addLabels": ["dependency", "workflow"],
+      "semanticCommitType": "ci",
+      "commitBodyTable": true,
+      "commitMessageTopic": "{{{depType}}} {{{depName}}}"
+    }
+  ]
+}
