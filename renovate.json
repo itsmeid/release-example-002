@@ -1,0 +1,56 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:best-practices",
+    "security:openssf-scorecard",
+    "customManagers:biomeVersions",
+    ":semanticCommits",
+    ":semanticCommitScopeDisabled"
+  ],
+  "labels": ["renovate"],
+  "schedule": ["at any time"],
+  "prHourlyLimit": 10,
+  "recreateWhen": "always",
+  "rebaseWhen": "behind-base-branch",
+  "dependencyDashboardTitle": "Renovate Dependency Dashboard",
+  "dependencyDashboardLabels": ["renovate"],
+  "dependencyDashboardOSVVulnerabilitySummary": "all",
+  "osvVulnerabilityAlerts": true,
+  "vulnerabilityAlerts": {
+    "addLabels": ["dependency", "security"],
+    "groupName": null,
+    "schedule": ["at any time"],
+    "dependencyDashboardApproval": false,
+    "minimumReleaseAge": null,
+    "rangeStrategy": "pin",
+    "prCreation": "immediate",
+    "vulnerabilityFixStrategy": "lowest",
+    "additionalBranchPrefix": "security/",
+    "branchTopic": "{{{datasource}}}-{{{depNameSanitized}}}-vulnerability",
+    "commitMessageTopic": "{{{depType}}} {{{depName}}}",
+    "commitMessageSuffix": "[SECURITY]"
+  },
+  "packageRules": [
+    {
+      "matchFileNames": ["**/bun.lock?(b)", "**/package.json"],
+      "additionalBranchPrefix": "npm/",
+      "addLabels": ["dependency"],
+      "semanticCommitType": "build",
+      "commitBodyTable": true,
+      "commitMessageTopic": "{{{depType}}} {{{depName}}}",
+      "commitMessageExtra": "from {{#if currentDigestShort}}{{{currentDigestShort}}}{{else}}{{{currentValue}}}{{/if}} to {{#if newDigestShort}}{{{newDigestShort}}}{{else}}{{{newValue}}}{{/if}}"
+    },
+    {
+      "matchFileNames": [
+        "**/{workflow-templates,.github,.gitea,.forgejo}/{workflows,actions}/*.yaml",
+        "**/action.yaml"
+      ],
+      "additionalBranchPrefix": "ci/",
+      "addLabels": ["dependency", "workflow"],
+      "semanticCommitType": "ci",
+      "commitBodyTable": true,
+      "commitMessageTopic": "{{{depType}}} {{{depName}}}",
+      "commitMessageExtra": "from {{#if currentDigestShort}}{{{currentDigestShort}}}{{else}}{{{currentValue}}}{{/if}} to {{#if newDigestShort}}{{{newDigestShort}}}{{else}}{{{newValue}}}{{/if}}"
+    }
+  ]
+}
