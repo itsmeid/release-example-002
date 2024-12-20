@@ -1,0 +1,31 @@
+name: Reviewdog
+
+run-name: Reviewdog > ${{ github.event.pull_request.title }}
+
+on:
+    pull_request:
+        branches-ignore:
+            - dependabot
+            - "dependabot/**"
+
+jobs:
+    review-code-quality:
+        name: Review code quality
+        if: ${{ github.actor != 'dependabot[bot]' }}
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            pull-requests: write
+        steps:
+            - name: Git checkout
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+                  ref: ${{ github.event.pull_request.head.ref }}
+
+            - name: Review code
+              uses: mongolyy/reviewdog-action-biome@v1
+              with:
+                  github_token: ${{ secrets.github_token }}
+                  reporter: github-pr-review
+                  fail_on_error: false

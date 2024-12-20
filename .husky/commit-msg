@@ -1,0 +1,11 @@
+error="$(tput setaf 1)✖️$(tput sgr0)"
+passed="$(tput setaf 2)✔️$(tput sgr0)"
+
+echo
+echo "$(tput bold)# COMMIT-MSG SCRIPT$(tput sgr0)"
+
+# Check commit message
+echo "> Check commit message..."
+bunx --no-install commitlint --verbose --edit $1
+
+echo
