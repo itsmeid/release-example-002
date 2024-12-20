@@ -1,0 +1,10 @@
+[test]
+root = "./__test__"
+coverageIgnoreSourcemaps = true
+coverageSkipTestFiles = true
+coverageThreshold = { lines = 1, functions = 1 }
+
+[install]
+exact = true
+save = true
+saveTextLockfile = true
