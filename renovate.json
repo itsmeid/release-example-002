@@ -1,0 +1,37 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:best-practices",
+    "security:openssf-scorecard",
+    "customManagers:biomeVersions",
+    ":semanticCommitScopeDisabled"
+  ],
+  "packageRules": [
+    {
+      "matchFileNames": ["**/package.json"],
+      "semanticCommitType": "build"
+    },
+    {
+      "matchFileNames": ["**/.github/**"],
+      "semanticCommitType": "ci"
+    }
+  ],
+  "labels": ["dependency"],
+  "prHourlyLimit": 10,
+  "dependencyDashboardOSVVulnerabilitySummary": "all",
+  "vulnerabilityAlerts": {
+    "labels": ["security"],
+    "groupName": null,
+    "schedule": [],
+    "dependencyDashboardApproval": false,
+    "minimumReleaseAge": null,
+    "rangeStrategy": "pin",
+    "commitMessageSuffix": "[SECURITY]",
+    "branchTopic": "{{{datasource}}}-{{{depNameSanitized}}}-vulnerability",
+    "prCreation": "immediate",
+    "vulnerabilityFixStrategy": "lowest"
+  },
+  "osvVulnerabilityAlerts": true,
+  "dependencyDashboardLabels": ["others"],
+  "schedule": ["at any time"]
+}
