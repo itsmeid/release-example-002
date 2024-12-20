@@ -1,0 +1,56 @@
+name: Pull Request
+
+on:
+  pull_request:
+    branches:
+      - "*"
+    types:
+      - opened
+      - edited
+      - synchronize
+      - reopened
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  title:
+    name: Title check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@446798f8213ac2e75931c1b0769676d927801858 # v2
+        with:
+          disable-sudo: true
+          egress-policy: audit
+
+      - name: Run check
+        uses: amannn/action-semantic-pull-request@0723387faaf9b38adef4775cd42cfd5155ed6017 # v5.5.3
+        with:
+          validateSingleCommit: true
+          validateSingleCommitMatchesPrTitle: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  review-format:
+    name: Review format
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@446798f8213ac2e75931c1b0769676d927801858 # v2
+        with:
+          disable-sudo: true
+          egress-policy: audit
+
+      - name: Git checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+
+      - name: Review code
+        uses: mongolyy/reviewdog-action-biome@aed3609ddbb255fb7be62299245943d9cdda3225 # v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+          fail_on_error: false
