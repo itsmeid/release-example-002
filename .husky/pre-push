@@ -1,0 +1,56 @@
+error="$(tput setaf 1)✖️$(tput sgr0)"
+passed="$(tput setaf 2)✔️$(tput sgr0)"
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+remote=$1
+
+echo
+echo "$(tput bold)# PRE-PUSH SCRIPT$(tput sgr0)"
+
+# Check remote branch
+remote_branch=$(git ls-remote --heads origin $current_branch || echo "")
+if [[ -z "$remote_branch" ]]; then
+  echo "$passed Push new branch."
+  echo
+  exit 0
+fi
+
+# Check commit(s) to push
+echo "> Check commit(s) to push"
+commits_to_push=$(git rev-list "$remote/$current_branch..$current_branch" || echo "")
+if [[ -z "$commits_to_push" ]]; then
+  echo "$error Nothing to push."
+  echo
+  exit 0
+fi
+echo "$passed Commit(s) were found."
+echo
+
+# Check files extension
+ext_list="\.(js|cjs|mjs|jsx|ts|cts|mts|tsx|json|jsonc|json5|css|scss|less|sass)$"
+need_checks=$(git diff --name-only "$remote/$current_branch..$current_branch" | grep -E "$ext_list" || echo "")
+if [[ -z "$need_checks" ]]; then
+  # Check spec and code coverage (skipped)
+  echo "> Check spec and code coverage..."
+  echo "$passed Spec is OK. (skipped)"
+  echo "$passed Code coverage is OK. (skipped)"
+  echo
+
+  # Check type definition (skipped)
+  echo "> Check type definition..."
+  echo "$passed Type definition is OK. (skipped)"
+  echo
+  exit 0
+fi
+
+# Check spec and code coverage
+echo "> Check spec and code coverage..."
+bun test --coverage || exit 1
+echo "$passed Spec is OK."
+echo "$passed Code coverage is OK."
+echo
+
+# Check type definition
+echo "> Check type definition..."
+bunx tsc --noEmit && echo "$passed Type definition is OK."
+
+echo
