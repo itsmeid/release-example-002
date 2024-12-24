@@ -43,7 +43,7 @@
     "out": "bun out:dist && bun out:codecov && bun out:docs",
     "out:codecov": "bun test --coverage --coverage-reporter=text --coverage-reporter=lcov --reporter=junit --reporter-outfile=coverage/reporter.xml",
     "out:dist": "rm -rf dist && bunx tsc -p ./tsconfig.dist.json",
-    "out:docs": "CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD) && bunx typedoc --publicPath https://github.com/itsmeid/release-example-002/tree/$CURRENT_BRANCH/docs && cp docs/README.md README.md"
+    "out:docs": "bunx typedoc --publicPath https://github.com/itsmeid/release-example-002/tree/main/docs && cp docs/README.md README.md"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
