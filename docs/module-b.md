@@ -103,7 +103,7 @@ The second object value.
 
 ### Defined in
 
-[module-b/module-b.ts:11](https://github.com/itsmeid/release-example-002/blob/ae8067690af9e8b8f4a13312a205ea2c0868eec4/src/module-b/module-b.ts#L11)
+[module-b/module-b.ts:11](https://github.com/itsmeid/release-example-002/blob/0fa203b83865be5ee9f29465ace0928ff194b777/src/module-b/module-b.ts#L11)
 
 ***
 
@@ -208,4 +208,4 @@ The second object value.
 
 ### Defined in
 
-[module-b/module-b.ts:21](https://github.com/itsmeid/release-example-002/blob/ae8067690af9e8b8f4a13312a205ea2c0868eec4/src/module-b/module-b.ts#L21)
+[module-b/module-b.ts:21](https://github.com/itsmeid/release-example-002/blob/0fa203b83865be5ee9f29465ace0928ff194b777/src/module-b/module-b.ts#L21)
