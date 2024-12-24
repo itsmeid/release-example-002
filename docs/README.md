@@ -95,5 +95,17 @@ This is package documentation for module-b.
 
 </td>
 </tr>
+<tr>
+<td>
+
+[module-c](https://github.com/itsmeid/release-example-002/tree/main/docs/module-c.md)
+
+</td>
+<td>
+
+This is package documentation for module-c.
+
+</td>
+</tr>
 </tbody>
 </table>
