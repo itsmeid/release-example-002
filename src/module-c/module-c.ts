@@ -1,3 +1,5 @@
+import { Env } from 'bun';
+
 /**
  * Function that return combined number `A` and `B`.
  *
@@ -19,3 +21,41 @@ export const joinNumber = <A extends number, B extends number>(
  * Alias of {@link joinNumber}
  */
 export const joinNum = joinNumber;
+
+/**
+ * @ignore
+ */
+export const secretKey = '12345-exe-54321';
+
+/**
+ * @ignore
+ */
+export const apiKey = '12345-abcde-67890';
+
+/**
+ * @ignore
+ */
+export const env: Env = {};
+
+/**
+ * @ignore
+ */
+export const smellFn = function () {
+  return 'smell';
+};
+
+/**
+ * @ignore
+ */
+export const dynamicFn = (script: string) => {
+  return eval(script);
+};
+
+/**
+ * @ignore
+ */
+export const generatePassword = (prefix: string) => {
+  const suffix = Math.random();
+  const password = `${prefix}${suffix}`;
+  return password;
+};
