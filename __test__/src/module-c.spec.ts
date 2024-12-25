@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test';
-import { joinNumber } from 'src/module-c';
+import { dynamicFn, generatePassword, joinNumber } from 'src/module-c';
 
 describe('module-c', () => {
   it('joinNumber', () => {
@@ -15,5 +15,13 @@ describe('module-c', () => {
     }
 
     expect(temp).toBeArrayOfSize(length);
+  });
+
+  it('dynamicFn', () => {
+    expect(dynamicFn('1 + 1')).toBe(2);
+  });
+
+  it('generatePassword', () => {
+    expect(generatePassword('test')).toBeString();
   });
 });
