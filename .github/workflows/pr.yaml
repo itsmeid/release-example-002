@@ -71,7 +71,7 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
       - name: Run check
-        uses: actions/dependency-review-action@v4
+        uses: actions/dependency-review-action@3b139cfc5fae8b618d3eae3675e383bb1769c019 # v4
         with:
           allow-licenses: MIT, ISC, CC0-1.0, Apache-2.0, BSD-3-Clause, Unlicense
           fail-on-severity: low
