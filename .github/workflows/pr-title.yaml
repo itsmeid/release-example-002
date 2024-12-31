@@ -20,7 +20,7 @@ permissions:
 jobs:
   title:
     name: PR Title check
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Harden runner
         uses: step-security/harden-runner@446798f8213ac2e75931c1b0769676d927801858 # v2
