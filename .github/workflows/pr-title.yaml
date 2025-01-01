@@ -49,4 +49,4 @@ jobs:
       - name: Run check
         env:
           PR_TITLE: ${{ github.event.pull_request.title }}
-        run: printenv "PR_TITLE" | bunx commitlint
+        run: printenv "PR_TITLE" | bunx --bun commitlint
