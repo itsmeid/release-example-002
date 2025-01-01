@@ -24,9 +24,9 @@
     "prCreation": "immediate",
     "vulnerabilityFixStrategy": "lowest"
   },
-  "commitMessageExtra": "{{currentValue}} to {{#if isPinDigest}}{{{newDigestShort}}}{{else}}{{#if isMajor}}{{prettyNewMajor}}{{else}}{{#if isSingleVersion}}{{prettyNewVersion}}{{else}}{{#if newValue}}{{{newValue}}}{{else}}{{{newDigestShort}}}{{/if}}{{/if}}{{/if}}{{/if}}",
+  "commitMessageExtra": "{{#if currentValue}}{{{currentValue}}}{{else}}{{{currentDigestShort}}}{{/if}} to {{#if currentValue}}{{{currentValue}}}{{else}}{{{newDigestShort}}}{{/if}}",
   "bun": {
-    "fileMatch": ["(^|/)bun\\.lockb?$", "(^|/)package\\.json$"],
+    "fileMatch": ["(^|/)bun\\.lockb?$"],
     "digest": {
       "prBodyDefinitions": {
         "Change": "{{#if displayFrom}}`{{{displayFrom}}}` -> {{else}}{{#if currentValue}}`{{{currentValue}}}` -> {{/if}}{{/if}}{{#if displayTo}}`{{{displayTo}}}`{{else}}`{{{newValue}}}`{{/if}}"
@@ -36,6 +36,23 @@
       "Change": "[{{#if displayFrom}}`{{{displayFrom}}}` -> {{else}}{{#if currentValue}}`{{{currentValue}}}` -> {{/if}}{{/if}}{{#if displayTo}}`{{{displayTo}}}`{{else}}`{{{newValue}}}`{{/if}}]({{#if depName}}https://renovatebot.com/diffs/npm/{{replace '/' '%2f' depName}}/{{{currentVersion}}}/{{{newVersion}}}{{/if}})"
     },
     "semanticCommitType": "build",
+    "commitMessagePrefix": "build",
+    "addLabels": ["dependency"]
+  },
+  "npm": {
+    "fileMatch": [
+      "(^|/)package\\.json$"
+    ],
+    "digest": {
+      "prBodyDefinitions": {
+        "Change": "{{#if displayFrom}}`{{{displayFrom}}}` -> {{else}}{{#if currentValue}}`{{{currentValue}}}` -> {{/if}}{{/if}}{{#if displayTo}}`{{{displayTo}}}`{{else}}`{{{newValue}}}`{{/if}}"
+      }
+    },
+    "prBodyDefinitions": {
+      "Change": "[{{#if displayFrom}}`{{{displayFrom}}}` -> {{else}}{{#if currentValue}}`{{{currentValue}}}` -> {{/if}}{{/if}}{{#if displayTo}}`{{{displayTo}}}`{{else}}`{{{newValue}}}`{{/if}}]({{#if depName}}https://renovatebot.com/diffs/npm/{{replace '/' '%2f' depName}}/{{{currentVersion}}}/{{{newVersion}}}{{/if}})"
+    },
+    "semanticCommitType": "build",
+    "commitMessagePrefix": "build",
     "addLabels": ["dependency"]
   },
   "github-actions": {
@@ -44,6 +61,7 @@
       "(^|/)action\\.ya?ml$"
     ],
     "semanticCommitType": "ci",
+    "commitMessagePrefix": "ci",
     "addLabels": ["dependency"]
   }
 }
