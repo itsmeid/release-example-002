@@ -6,16 +6,15 @@
     "customManagers:biomeVersions",
     ":semanticCommitScopeDisabled"
   ],
+  "commitMessageExtra": "{{displayFrom}} to {{#if isPinDigest}}{{{newDigestShort}}}{{else}}{{#if isMajor}}{{prettyNewMajor}}{{else}}{{#if isSingleVersion}}{{prettyNewVersion}}{{else}}{{#if newValue}}{{{newValue}}}{{else}}{{{newDigestShort}}}{{/if}}{{/if}}{{/if}}{{/if}}",
   "packageRules": [
     {
       "matchFileNames": ["**/package.json"],
-      "semanticCommitType": "build",
-      "commitMessage": "build: update dependency {{depName}} from {{displayFrom}} to {{displayTo}}"
+      "semanticCommitType": "build"
     },
     {
       "matchFileNames": ["**/.github/**"],
-      "semanticCommitType": "ci",
-      "commitMessage": "ci: update {{depName}} from {{displayFrom}} to {{displayTo}}"
+      "semanticCommitType": "ci"
     }
   ],
   "labels": ["dependency"],
