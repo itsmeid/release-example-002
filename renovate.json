@@ -25,16 +25,6 @@
     "prCreation": "immediate",
     "vulnerabilityFixStrategy": "lowest"
   },
-  "pin": {
-    "group": {
-      "enabled": false
-    }
-  },
-  "pinDigest": {
-    "group": {
-      "enabled": false
-    }
-  },
   "packageRules": [
     {
       "matchFileNames": ["**/bun.lock?(b)", "**/package.json"],
@@ -53,5 +43,18 @@
       "semanticCommitType": "ci",
       "commitMessageExtra": "{{#if currentDigestShort}}{{{currentDigestShort}}}{{else}}{{{currentValue}}}{{/if}} to {{#if newDigestShort}}{{{newDigestShort}}}{{else}}{{{newValue}}}{{/if}}"
     }
-  ]
+  ],
+  "pin": {
+    "group": {
+      "enabled": false
+    }
+  },
+  "pinDigest": {
+    "group": {
+      "enabled": false
+    }
+  },
+  "group": {
+    "enabled": false
+  }
 }
