@@ -25,7 +25,7 @@
     "prCreation": "immediate",
     "vulnerabilityFixStrategy": "lowest"
   },
-  "commitMessageExtra": "{{#if currentValue}}{{{currentValue}}}{{else}}{{{currentDigestShort}}}{{/if}} to {{#if newValue}}{{{newValue}}}{{else}}{{{newDigestShort}}}{{/if}}",
+  "commitMessageExtra": "{{#if isPinDigest}}{{{currentDigestShort}}}{{else}}{{{currentValue}}}{{/if}} to {{#if isPinDigest}}{{{newDigestShort}}}{{else}}{{{newValue}}}{{/if}}",
   "bun": {
     "fileMatch": ["(^|/)bun\\.lockb?$"],
     "digest": {
@@ -33,11 +33,11 @@
         "Change": "{{#if displayFrom}}`{{{displayFrom}}}` -> {{else}}{{#if currentValue}}`{{{currentValue}}}` -> {{/if}}{{/if}}{{#if displayTo}}`{{{displayTo}}}`{{else}}`{{{newValue}}}`{{/if}}"
       }
     },
+    "commitMessageExtra": "to {{#if isPinDigest}}{{{newDigestShort}}}{{else}}{{#if isMajor}}{{prettyNewMajor}}{{else}}{{#if isSingleVersion}}{{prettyNewVersion}}{{else}}{{#if newValue}}{{{newValue}}}{{else}}{{{newDigestShort}}}{{/if}}{{/if}}{{/if}}{{/if}}",
     "prBodyDefinitions": {
       "Change": "[{{#if displayFrom}}`{{{displayFrom}}}` -> {{else}}{{#if currentValue}}`{{{currentValue}}}` -> {{/if}}{{/if}}{{#if displayTo}}`{{{displayTo}}}`{{else}}`{{{newValue}}}`{{/if}}]({{#if depName}}https://renovatebot.com/diffs/npm/{{replace '/' '%2f' depName}}/{{{currentVersion}}}/{{{newVersion}}}{{/if}})"
     },
     "semanticCommitType": "build",
-    "commitMessageExtra": "to {{#if isPinDigest}}{{{newDigestShort}}}{{else}}{{#if isMajor}}{{prettyNewMajor}}{{else}}{{#if isSingleVersion}}{{prettyNewVersion}}{{else}}{{#if newValue}}{{{newValue}}}{{else}}{{{newDigestShort}}}{{/if}}{{/if}}{{/if}}{{/if}}",
     "addLabels": ["dependency"]
   },
   "npm": {
