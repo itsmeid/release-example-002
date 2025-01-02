@@ -25,12 +25,13 @@
     "prCreation": "immediate",
     "vulnerabilityFixStrategy": "lowest"
   },
+  "commitMessageExtra": "to {{#if isPinDigest}}{{{newDigestShort}}}{{else}}{{#if isMajor}}{{prettyNewMajor}}{{else}}{{#if isSingleVersion}}{{prettyNewVersion}}{{else}}{{#if newValue}}{{{newValue}}}{{else}}{{{newDigestShort}}}{{/if}}{{/if}}{{/if}}{{/if}}",
   "packageRules": [
     {
       "matchFileNames": ["**/bun.lock?(b)", "**/package.json"],
       "addLabels": ["dependency"],
       "semanticCommitType": "build",
-      "commitMessageExtra": "{{#if isPinDigest}}{{{currentDigestShort}}}{{else}}{{{currentValue}}}{{/if}} to {{#if isPinDigest}}{{{newDigestShort}}}{{else}}{{{newValue}}}{{/if}}"
+      "commitMessageExtra": "{{#if currentValue}}{{{currentValue}}}{{else}}{{{currentDigestShort}}}{{/if}} to {{#if newValue}}{{{newValue}}}{{else}}{{{newDigestShort}}}{{/if}}"
     },
     {
       "matchFileNames": [
@@ -39,7 +40,7 @@
       ],
       "addLabels": ["dependency", "workflow"],
       "semanticCommitType": "ci",
-      "commitMessageExtra": "{{#if isPinDigest}}{{{currentDigestShort}}}{{else}}{{{currentValue}}}{{/if}} to {{#if isPinDigest}}{{{newDigestShort}}}{{else}}{{{newValue}}}{{/if}}"
+      "commitMessageExtra": "{{#if currentValue}}{{{currentValue}}}{{else}}{{{currentDigestShort}}}{{/if}} to {{#if newValue}}{{{newValue}}}{{else}}{{{newDigestShort}}}{{/if}}"
     }
   ]
 }
