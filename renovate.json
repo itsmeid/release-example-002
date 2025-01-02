@@ -27,15 +27,15 @@
   },
   "packageRules": [
     {
-      "matchFileNames": ["(^|/)bun\\.lockb?$", "(^|/)package\\.json$"],
+      "matchFileNames": ["**/bun.lockb?", "**/package.json"],
       "addLabels": ["dependency"],
       "semanticCommitType": "build",
       "commitMessageExtra": "{{#if isPinDigest}}{{{currentDigestShort}}}{{else}}{{{currentValue}}}{{/if}} to {{#if isPinDigest}}{{{newDigestShort}}}{{else}}{{{newValue}}}{{/if}}"
     },
     {
       "matchFileNames": [
-        "(^|/)(workflow-templates|\\.(?:github|gitea|forgejo)/(?:workflows|actions))/.+\\.ya?ml$",
-        "(^|/)action\\.ya?ml$"
+        "**/(workflow-templates|.github|.gitea|.forgejo)/(workflows|actions)/*.yaml",
+        "**/action.yaml"
       ],
       "addLabels": ["dependency", "workflow"],
       "semanticCommitType": "ci",
