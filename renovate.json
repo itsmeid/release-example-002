@@ -30,6 +30,11 @@
       "enabled": false
     }
   },
+  "pinDigest": {
+    "group": {
+      "enabled": false
+    }
+  },
   "packageRules": [
     {
       "matchFileNames": ["**/bun.lock?(b)", "**/package.json"],
