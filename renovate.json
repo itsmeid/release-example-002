@@ -28,6 +28,7 @@
   "packageRules": [
     {
       "matchFileNames": ["**/bun.lock?(b)", "**/package.json"],
+      "additionalBranchPrefix": "npm/",
       "addLabels": ["dependency"],
       "semanticCommitType": "build",
       "commitMessageExtra": "{{#if currentDigestShort}}{{{currentDigestShort}}}{{else}}{{{currentValue}}}{{/if}} to {{#if newDigestShort}}{{{newDigestShort}}}{{else}}{{{newValue}}}{{/if}}"
@@ -37,6 +38,7 @@
         "**/{workflow-templates,.github,.gitea,.forgejo}/{workflows,actions}/*.yaml",
         "**/action.yaml"
       ],
+      "additionalBranchPrefix": "ci/",
       "addLabels": ["dependency", "workflow"],
       "semanticCommitType": "ci",
       "commitMessageExtra": "{{#if currentDigestShort}}{{{currentDigestShort}}}{{else}}{{{currentValue}}}{{/if}} to {{#if newDigestShort}}{{{newDigestShort}}}{{else}}{{{newValue}}}{{/if}}"
