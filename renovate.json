@@ -25,6 +25,11 @@
     "prCreation": "immediate",
     "vulnerabilityFixStrategy": "lowest"
   },
+  "pin": {
+    "group": {
+      "enabled": false
+    }
+  },
   "packageRules": [
     {
       "matchFileNames": ["**/bun.lock?(b)", "**/package.json"],
