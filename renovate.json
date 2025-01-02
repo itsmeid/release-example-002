@@ -25,41 +25,21 @@
     "prCreation": "immediate",
     "vulnerabilityFixStrategy": "lowest"
   },
-  "bun": {
-    "fileMatch": ["(^|/)bun\\.lockb?$"],
-    "digest": {
-      "prBodyDefinitions": {
-        "Change": "{{#if displayFrom}}`{{{displayFrom}}}` -> {{else}}{{#if currentValue}}`{{{currentValue}}}` -> {{/if}}{{/if}}{{#if displayTo}}`{{{displayTo}}}`{{else}}`{{{newValue}}}`{{/if}}"
-      }
+  "packageRules": [
+    {
+      "matchFileNames": ["(^|/)bun\\.lockb?$", "(^|/)package\\.json$"],
+      "addLabels": ["dependency"],
+      "semanticCommitType": "build",
+      "commitMessageExtra": "{{#if isPinDigest}}{{{currentDigestShort}}}{{else}}{{{currentValue}}}{{/if}} to {{#if isPinDigest}}{{{newDigestShort}}}{{else}}{{{newValue}}}{{/if}}"
     },
-    "prBodyDefinitions": {
-      "Change": "[{{#if displayFrom}}`{{{displayFrom}}}` -> {{else}}{{#if currentValue}}`{{{currentValue}}}` -> {{/if}}{{/if}}{{#if displayTo}}`{{{displayTo}}}`{{else}}`{{{newValue}}}`{{/if}}]({{#if depName}}https://renovatebot.com/diffs/npm/{{replace '/' '%2f' depName}}/{{{currentVersion}}}/{{{newVersion}}}{{/if}})"
-    },
-    "semanticCommitType": "build",
-    "addLabels": ["dependency"]
-  },
-  "npm": {
-    "fileMatch": [
-      "(^|/)package\\.json$"
-    ],
-    "digest": {
-      "prBodyDefinitions": {
-        "Change": "{{#if displayFrom}}`{{{displayFrom}}}` -> {{else}}{{#if currentValue}}`{{{currentValue}}}` -> {{/if}}{{/if}}{{#if displayTo}}`{{{displayTo}}}`{{else}}`{{{newValue}}}`{{/if}}"
-      }
-    },
-    "prBodyDefinitions": {
-      "Change": "[{{#if displayFrom}}`{{{displayFrom}}}` -> {{else}}{{#if currentValue}}`{{{currentValue}}}` -> {{/if}}{{/if}}{{#if displayTo}}`{{{displayTo}}}`{{else}}`{{{newValue}}}`{{/if}}]({{#if depName}}https://renovatebot.com/diffs/npm/{{replace '/' '%2f' depName}}/{{{currentVersion}}}/{{{newVersion}}}{{/if}})"
-    },
-    "semanticCommitType": "build",
-    "addLabels": ["dependency"]
-  },
-  "github-actions": {
-    "fileMatch": [
-      "(^|/)(workflow-templates|\\.(?:github|gitea|forgejo)/(?:workflows|actions))/.+\\.ya?ml$",
-      "(^|/)action\\.ya?ml$"
-    ],
-    "semanticCommitType": "ci",
-    "addLabels": ["dependency"]
-  },
-  "commitMessageExtra": "{{#if isPinDigest}}{{{currentDigestShort}}}{{else}}{{{currentValue}}}{{/if}} to {{#if isPinDigest}}{{{newDigestShort}}}{{else}}{{{newValue}}}{{/if}}"
+    {
+      "matchFileNames": [
+        "(^|/)(workflow-templates|\\.(?:github|gitea|forgejo)/(?:workflows|actions))/.+\\.ya?ml$",
+        "(^|/)action\\.ya?ml$"
+      ],
+      "addLabels": ["dependency", "workflow"],
+      "semanticCommitType": "ci",
+      "commitMessageExtra": "{{#if isPinDigest}}{{{currentDigestShort}}}{{else}}{{{currentValue}}}{{/if}} to {{#if isPinDigest}}{{{newDigestShort}}}{{else}}{{{newValue}}}{{/if}}"
+    }
+  ]
 }
