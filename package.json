@@ -52,7 +52,7 @@
     "@semantic-release/changelog": "6.0.3",
     "@types/bun": "latest",
     "chalk": "5.4.1",
-    "husky": "9.1.6",
+    "husky": "9.1.7",
     "semantic-release": "24.2.0",
     "typedoc": "0.27.5",
     "typedoc-plugin-markdown": "4.3.2",
