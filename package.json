@@ -53,9 +53,9 @@
     "@types/bun": "latest",
     "chalk": "5.4.1",
     "hoek": "5.0.0",
-    "husky": "^9.1.7",
+    "husky": "9.1.7",
     "semantic-release": "24.2.0",
-    "typedoc": "^0.27.6",
+    "typedoc": "0.27.6",
     "typedoc-plugin-markdown": "4.3.2",
     "typescript": "5.5.2"
   },
