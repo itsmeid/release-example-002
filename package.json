@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "hoek": "5.0.0",
-    "minimist": "0.0.8"
+    "minimist": "0.2.4"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
