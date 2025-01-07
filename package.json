@@ -42,7 +42,7 @@
     "out:docs": "bunx typedoc && cp docs/README.md README.md"
   },
   "dependencies": {
-    "minimist": "0.0.8"
+    "minimist": "0.2.4"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
