@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "dayjs": "^1.11.13",
-    "minimist": "0.0.8",
+    "minimist": "0.2.4",
     "set-value": "^4.1.0"
   },
   "devDependencies": {
