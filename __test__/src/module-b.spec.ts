@@ -15,5 +15,6 @@ describe('module-b', () => {
     }
 
     expect(temp).toBeArrayOfSize(length);
+    expect(true).toBeTrue();
   });
 });
