@@ -44,7 +44,9 @@ jobs:
         uses: oven-sh/setup-bun@4bc047ad259df6fc24a6c9b0f9a0cb08cf17fbe5 # v2.0.1
 
       - name: Install dependencies
-        run: bun ci
+        run: |
+          bun ci
+          bun install --no-save ms
 
       - name: Audit signatures
         run: bunx npm audit signatures
