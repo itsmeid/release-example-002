@@ -23,7 +23,6 @@
   "type": "module",
   "scripts": {
     "prepare": "bunx husky || true",
-    "prepublishOnly": "bun check && bun out:docs && bun out:dist",
     "ci": "bun install --frozen-lockfile",
     "reinstall": "bun clean:deps && bun install",
 
