@@ -65,13 +65,14 @@ const Config: GlobalConfig = {
     [
       '@semantic-release/npm',
       {
+        tarballDir: 'dist',
         pkgRoot: '.'
       }
     ],
     [
       '@semantic-release/github',
       {
-        assets: ['dist/**', 'package.json', 'LICENSE', 'README.md']
+        assets: 'dist/*.tgz'
       }
     ]
   ]
