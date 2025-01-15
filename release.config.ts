@@ -63,6 +63,12 @@ const Config: GlobalConfig = {
       }
     ],
     [
+      '@semantic-release/changelog',
+      {
+        changelogFile: 'CHANGELOG.md'
+      }
+    ],
+    [
       '@semantic-release/npm',
       {
         tarballDir: 'dist',

@@ -47,6 +47,9 @@ jobs:
       - name: Install dependencies
         run: bun ci
 
+      - name: Run check
+        run: bun check
+
       - name: Audit signatures
         run: bunx npm audit signatures
 
@@ -57,4 +60,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: bunx semantic-release
+        run: bunx npx semantic-release && cat CHANGELOG.md >> $GITHUB_STEP_SUMMARY
