@@ -64,3 +64,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: bunx npx semantic-release && cat CHANGELOG.md >> $GITHUB_STEP_SUMMARY
+
+      - name: Test
+        run: |
+          ls -la
+          ls dist -la
