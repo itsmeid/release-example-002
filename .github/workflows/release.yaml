@@ -27,13 +27,15 @@ jobs:
         uses: step-security/harden-runner@c95a14d0e5bab51a9f56296a4eb0e416910cd350 # v2.10.3
         with:
           disable-sudo: true
-          egress-policy: audit
+          egress-policy: block
           allowed-endpoints: >
             api.github.com:443
             bun.sh:443
+            fulcio.sigstore.dev:443
             github.com:443
             objects.githubusercontent.com:443
             registry.npmjs.org:443
+            rekor.sigstore.dev:443
             tuf-repo-cdn.sigstore.dev:443
             uploads.github.com:443
 
