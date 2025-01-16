@@ -42,7 +42,7 @@ const Config: GlobalConfig = {
     [
       '@semantic-release/release-notes-generator',
       {
-        preset: 'conventionalcommits',
+        preset: 'angular',
         presetConfig: {
           types: [
             {
