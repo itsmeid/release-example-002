@@ -45,10 +45,21 @@ const Config: GlobalConfig = {
         preset: 'conventionalcommits',
         presetConfig: {
           types: [
+            {
+              type: 'chore',
+              scope: 'release',
+              section: 'Others',
+              hidden: false
+            },
             { type: 'feat', section: 'Features', hidden: false },
             { type: 'fix', section: 'Fixes', hidden: false },
             { type: 'docs', section: 'Documentations', hidden: false },
-            { type: 'perf', section: 'Improvements', hidden: false },
+            {
+              type: 'perf',
+              section: 'Performance Improvements',
+              hidden: false
+            },
+            { type: 'revert', section: 'Reverts', hidden: false },
             { type: 'build', hidden: true },
             { type: 'chore', hidden: true },
             { type: 'ci', hidden: true },
