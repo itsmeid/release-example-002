@@ -13,8 +13,9 @@ permissions:
   contents: read
 
 jobs:
-  release:
-    name: Release
+  publish:
+    name: Publish release
+    if: github.repository == 'itsmeid/release-example-002'
     runs-on: ubuntu-24.04
     permissions:
       contents: write
@@ -26,7 +27,7 @@ jobs:
         uses: step-security/harden-runner@c95a14d0e5bab51a9f56296a4eb0e416910cd350 # v2.10.3
         with:
           disable-sudo: true
-          egress-policy: block
+          egress-policy: audit
           allowed-endpoints: >
             api.github.com:443
             bun.sh:443
@@ -35,7 +36,7 @@ jobs:
             registry.npmjs.org:443
             tuf-repo-cdn.sigstore.dev:443
             uploads.github.com:443
-            
+
       - name: Git checkout (full-history)
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
@@ -51,13 +52,13 @@ jobs:
         run: bun check
 
       - name: Audit signatures
-        run: bunx npm audit signatures
+        run: npm audit signatures
 
       - name: Build dist
         run: bunx tsc -p ./tsconfig.dist.json
 
-      - name: Release
+      - name: Publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: bunx npx semantic-release && cat CHANGELOG.md >> $GITHUB_STEP_SUMMARY
+        run: npx semantic-release && cat CHANGELOG.md >> $GITHUB_STEP_SUMMARY
