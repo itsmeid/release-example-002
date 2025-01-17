@@ -79,6 +79,7 @@ const getConfig = () => {
       [
         '@semantic-release/changelog',
         {
+          changelogTitle: 'Release Notes',
           changelogFile: 'RELEASE_NOTES.md'
         }
       ]
@@ -96,7 +97,6 @@ const getConfig = () => {
       [
         '@semantic-release/github',
         {
-          releaseNameTemplate: '<%= nextRelease.version %>',
           addReleases: 'bottom'
         }
       ]
