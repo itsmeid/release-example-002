@@ -96,7 +96,8 @@ const getConfig = () => {
       [
         '@semantic-release/github',
         {
-          addReleases: 'top'
+          releaseNameTemplate: '<%= nextRelease.version %>',
+          addReleases: 'bottom'
         }
       ]
     );
