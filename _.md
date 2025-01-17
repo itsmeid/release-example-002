@@ -2,19 +2,19 @@
   
 # release-example-002
 
-<p align="center">Lorem ipsum dolor amet roin sollicitudin tellus vitae metus mollis tellus fermentum cursus.</p>
-  
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
-[![GitHub Release](https://img.shields.io/github/v/release/itsmeid/release-example-002)](https://github.com/itsmeid/release-example-002/releases)
-[![Latest Stable Version](https://img.shields.io/npm/v/release-example-002.svg)](https://www.npmjs.com/package/release-example-002)
-[![NPM Downloads](https://img.shields.io/npm/dt/release-example-002.svg)](https://www.npmjs.com/package/release-example-002)
+<p align="center">
+Lorem ipsum dolor amet roin sollicitudin tellus vitae metus mollis tellus fermentum cursus.
+</p>
 
-[![CI](https://github.com/itsmeid/release-example-002/actions/workflows/ci.yaml/badge.svg)](https://github.com/itsmeid/release-example-002/actions/workflows/ci.yaml)
-[![CodeQL](https://github.com/itsmeid/release-example-002/actions/workflows/codeql.yaml/badge.svg)](https://github.com/itsmeid/release-example-002/actions/workflows/codeql.yaml)
-[![Codecov](https://codecov.io/github/itsmeid/release-example-002/graph/badge.svg?token=R62KO8XWDI)](https://codecov.io/github/itsmeid/release-example-002)
-[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/itsmeid/release-example-002/badge)](https://scorecard.dev/viewer/?uri=github.com/itsmeid/release-example-002)
-[![Renovate](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com)
-[![Lint](https://img.shields.io/badge/Lint-Biome-60a5fa?style=flat&logo=biome)](https://biomejs.dev)
+[![License](https://img.shields.io/github/license/itsmeid/release-example-002?style=flat-square&color=blue)](/LICENSE)
+[![NPM Latest](https://img.shields.io/npm/v/release-example-002.svg?style=flat-square&color=blue)](https://www.npmjs.com/package/release-example-002)
+[![NPM Downloads](https://img.shields.io/npm/dt/release-example-002.svg?style=flat-square&color=blue)](https://www.npmjs.com/package/release-example-002)
+[![Bundlephobia](https://img.shields.io/bundlephobia/minzip/release-example-002?style=flat-square&color=blue)](https://bundlephobia.com/package/release-example-002@1.0.18)
+
+[![CI](https://img.shields.io/github/actions/workflow/status/itsmeid/release-example-002/ci.yaml?style=flat-square&logo=github&label=CI&labelColor=383f47)](https://github.com/itsmeid/release-example-002/actions/workflows/ci.yaml)
+[![CodeQL](https://img.shields.io/github/actions/workflow/status/itsmeid/release-example-002/codeql.yaml?style=flat-square&logo=github&label=CodeQL&labelColor=383f47)](https://github.com/itsmeid/release-example-002/actions/workflows/codeql.yaml)
+[![Codecov](https://img.shields.io/codecov/c/github/itsmeid/release-example-002?style=flat-square&logo=codecov&label=Coverage&labelColor=383f47)](https://app.codecov.io/github/itsmeid/release-example-002)
+[![OpenSSF Scorecard](https://img.shields.io/ossf-scorecard/github.com/itsmeid/release-example-002?style=flat-square&label=ossf%20scorecard&labelColor=383f47)](https://scorecard.dev/viewer/?uri=github.com/itsmeid/release-example-002)
 
 </div>
 

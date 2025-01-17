@@ -19,13 +19,7 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true,
-      "suspicious": {
-        "noExplicitAny": "info"
-      },
-      "style": {
-        "useImportType": "info"
-      }
+      "recommended": true
     }
   },
   "css": {

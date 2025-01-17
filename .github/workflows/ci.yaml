@@ -129,7 +129,7 @@ jobs:
         run: bun ci
 
       - name: Run check
-        run: bunx biome ci --reporter=github --diagnostic-level=error --no-errors-on-unmatched
+        run: bunx biome ci --reporter=github --max-diagnostics=none --no-errors-on-unmatched
 
   spec:
     name: Spec check

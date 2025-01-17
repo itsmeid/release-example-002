@@ -26,23 +26,19 @@
     "prepare": "bunx husky || true",
     "ci": "bun install --frozen-lockfile",
     "reinstall": "bun clean:deps && bun install",
-
     "clean": "bun clean:deps && bun clean:docs && bun clean:dist && bun clean:codecov",
     "clean:codecov": "rm -rf coverage",
     "clean:deps": "rm -rf node_modules && rm -f bun.lockb",
     "clean:dist": "rm -rf dist",
     "clean:docs": "rm -rf docs",
-
     "check": "bun check:type && bun check:spec && bun check:format && bun check:lint",
     "check:format": "bunx biome check --linter-enabled=false",
     "check:lint": "bunx biome lint",
     "check:spec": "bun test --coverage",
     "check:type": "bunx tsc --noEmit --extendedDiagnostics",
-
     "fix": "bun fix:format && bun fix:lint",
     "fix:format": "bunx biome check --linter-enabled=false --fix",
     "fix:lint": "bunx biome lint --fix",
-
     "out": "bun out:codecov && bun out:dist && bun out:docs",
     "out:codecov": "bun test --coverage --coverage-reporter=text --coverage-reporter=lcov --reporter=junit --reporter-outfile=coverage/reporter.xml",
     "out:dist": "rm -rf dist && bunx tsc -p ./tsconfig.dist.json",
@@ -54,6 +50,7 @@
     "@commitlint/config-conventional": "19.6.0",
     "@commitlint/format": "19.5.0",
     "@semantic-release/changelog": "6.0.3",
+    "@semantic-release/exec": "6.0.3",
     "@types/bun": "latest",
     "chalk": "5.4.1",
     "conventional-changelog-conventionalcommits": "8.0.0",
@@ -61,7 +58,7 @@
     "semantic-release": "24.2.1",
     "typedoc": "0.27.6",
     "typedoc-plugin-markdown": "4.4.1",
-    "typescript": "5.5.2"
+    "typescript": "5.7.3"
   },
   "exports": {
     ".": {

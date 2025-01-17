@@ -1,10 +1,26 @@
 import type { GlobalConfig, PluginSpec } from 'semantic-release';
 
 const isDryRun = process.argv.includes('--dry-run');
+const generateCmd = {
+  releases:
+    'echo ${JSON.stringify(releases)} > .semantic-release.releases.json',
+  lastRelease:
+    'echo ${JSON.stringify(lastRelease)} > .semantic-release.lastRelease.json',
+  lastGitTag:
+    'printf "%s" ${lastRelease.gitTag} > .semantic-release.lastRelease.gitTag',
+  lastVersion:
+    'printf "%s" ${lastRelease.version} > .semantic-release.lastRelease.version',
+  nextRelease:
+    'echo ${JSON.stringify(nextRelease)} > .semantic-release.nextRelease.json',
+  nextGitTag:
+    'printf "%s" ${nextRelease.gitTag} > .semantic-release.nextRelease.gitTag',
+  nextVersion:
+    'printf "%s" ${nextRelease.version} > .semantic-release.nextRelease.version'
+};
 
 const getConfig = () => {
   const result: GlobalConfig = {
-    branches: ['main'],
+    branches: ['main', { name: 'dev', channel: 'dev', prerelease: true }],
     repositoryUrl: 'https://github.com/itsmeid/release-example-002',
     tagFormat: 'v${version}',
     plugins: [
@@ -73,14 +89,6 @@ const getConfig = () => {
           },
           parserOpts: {
             noteKeywords: ['BREAKING CHANGE', 'BREAKING-CHANGE']
-          },
-          writerOpts: {
-            finalizeContext: (context: object) => {
-              return {
-                ...context,
-                title: 'Release Notes'
-              };
-            }
           }
         }
       ],
@@ -89,6 +97,12 @@ const getConfig = () => {
         {
           changelogTitle: '## 📝 Generated Notes',
           changelogFile: 'RELEASE_NOTES.md'
+        }
+      ],
+      [
+        '@semantic-release/exec',
+        {
+          generateNotesCmd: `${Object.values(generateCmd).join(' && ')}`
         }
       ]
     ]
