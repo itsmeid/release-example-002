@@ -75,14 +75,19 @@ const getConfig = () => {
             noteKeywords: ['BREAKING CHANGE', 'BREAKING-CHANGE']
           },
           writerOpts: {
-            title: 'Release Notes'
+            finalizeContext: (context: object) => {
+              return {
+                ...context,
+                title: 'Release Notes'
+              };
+            }
           }
         }
       ],
       [
         '@semantic-release/changelog',
         {
-          changelogTitle: '# Release Notes',
+          changelogTitle: '## 📝 Generated Notes',
           changelogFile: 'RELEASE_NOTES.md'
         }
       ]
