@@ -73,13 +73,16 @@ const getConfig = () => {
           },
           parserOpts: {
             noteKeywords: ['BREAKING CHANGE', 'BREAKING-CHANGE']
+          },
+          writerOpts: {
+            title: 'Release Notes'
           }
         }
       ],
       [
         '@semantic-release/changelog',
         {
-          changelogTitle: 'Release Notes',
+          changelogTitle: '# Release Notes',
           changelogFile: 'RELEASE_NOTES.md'
         }
       ]
