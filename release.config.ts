@@ -21,7 +21,7 @@ const generateCmd = {
 
 const getConfig = () => {
   const result: GlobalConfig = {
-    branches: ['main', { name: 'dev', channel: 'dev', prerelease: true }],
+    branches: ['main'],
     repositoryUrl: 'https://github.com/itsmeid/release-example-002',
     tagFormat: 'v${version}',
     plugins: [

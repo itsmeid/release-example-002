@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - dev
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -74,6 +73,6 @@ jobs:
           printf "%s Type: %s\n" "-" "$type" >> $GITHUB_STEP_SUMMARY
           printf "%s Version: %s\n" "-" "$nextVersion" >> $GITHUB_STEP_SUMMARY 
           printf "%s Tag: %s\n" "-" "$nextTag" >> $GITHUB_STEP_SUMMARY
-          printf "%s URL: %s\n" "-" "[$nextTag Release]($releaseURL)" >> $GITHUB_STEP_SUMMARY
+          printf "%s\n" "[Release URL]($releaseURL)" >> $GITHUB_STEP_SUMMARY
           echo "## 📝 Generated Notes" >> $GITHUB_STEP_SUMMARY
           cat RELEASE_NOTES.md >> $GITHUB_STEP_SUMMARY
