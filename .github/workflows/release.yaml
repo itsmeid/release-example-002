@@ -72,6 +72,6 @@ jobs:
           echo "## 🚀 Release Detail"
           printf "%s Version: %s\n" "-" "$nextVersion" >> $GITHUB_STEP_SUMMARY 
           printf "%s Tag: %s\n" "-" "$nextTag" >> $GITHUB_STEP_SUMMARY
-          printf "%s URL: %\n" "-" "$releaseURL" >> $GITHUB_STEP_SUMMARY
+          printf "%s URL: %s\n" "-" "$releaseURL" >> $GITHUB_STEP_SUMMARY
           echo "## 📝 Generated Notes" >> $GITHUB_STEP_SUMMARY
           cat RELEASE_NOTES.md >> $GITHUB_STEP_SUMMARY
