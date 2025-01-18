@@ -67,7 +67,7 @@ jobs:
         run: |
           bunx npx semantic-release
           nextVersion=$(cat .semantic-release.nextRelease.version)
-          nextTag=$(cat .semantic-release.nextRelease.tag)
+          nextTag=$(cat .semantic-release.nextRelease.gitTag)
           echo "## 📝 Generated Notes" >> $GITHUB_STEP_SUMMARY
           printf "%sVersion: %s\n" "-" "$nextVersion" >> $GITHUB_STEP_SUMMARY 
           printf "%Tag: %s\n" "-" "$nextTag" >> $GITHUB_STEP_SUMMARY
