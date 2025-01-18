@@ -68,8 +68,10 @@ jobs:
           bunx npx semantic-release
           nextVersion=$(cat .semantic-release.nextRelease.version)
           nextTag=$(cat .semantic-release.nextRelease.gitTag)
+          releaseURL="https://github.com/${{ github.repository }}/release/$nextTag"
+          echo "## 🚀 Release Detail"
+          printf "%s Version: %s\n" "-" "$nextVersion" >> $GITHUB_STEP_SUMMARY 
+          printf "%s Tag: %s\n" "-" "$nextTag" >> $GITHUB_STEP_SUMMARY
+          printf "%s URL: %\n" "-" "$releaseURL" >> $GITHUB_STEP_SUMMARY
           echo "## 📝 Generated Notes" >> $GITHUB_STEP_SUMMARY
-          printf "%sVersion: %s\n" "-" "$nextVersion" >> $GITHUB_STEP_SUMMARY 
-          printf "%sTag: %s\n" "-" "$nextTag" >> $GITHUB_STEP_SUMMARY
-          echo "---" >> $GITHUB_STEP_SUMMARY
           cat RELEASE_NOTES.md >> $GITHUB_STEP_SUMMARY
