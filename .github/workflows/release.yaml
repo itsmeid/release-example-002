@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - dev
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -63,4 +64,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: bunx npx semantic-release && cat RELEASE_NOTES.md >> $GITHUB_STEP_SUMMARY
+        run: |
+          bunx npx semantic-release
+          nextVersion=$(cat .semantic-release.nextRelease.version)
+          nextTag=$(cat .semantic-release.nextRelease.tag)
+          echo "## 📝 Generated Notes" >> $GITHUB_STEP_SUMMARY
+          printf "%sVersion: %s\n" "-" "$nextVersion" >> $GITHUB_STEP_SUMMARY 
+          printf "%Tag: %s\n" "-" "$nextTag" >> $GITHUB_STEP_SUMMARY
+          echo "---" >> $GITHUB_STEP_SUMMARY
+          cat RELEASE_NOTES.md >> $GITHUB_STEP_SUMMARY

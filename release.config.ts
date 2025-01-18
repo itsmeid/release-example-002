@@ -95,7 +95,6 @@ const getConfig = () => {
       [
         '@semantic-release/changelog',
         {
-          changelogTitle: '## 📝 Generated Notes',
           changelogFile: 'RELEASE_NOTES.md'
         }
       ],
