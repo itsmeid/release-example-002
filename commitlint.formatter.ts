@@ -10,7 +10,7 @@ import { Chalk } from 'chalk';
 const CI = [true, 'true', 1, '1'].includes(process.env.CI || '');
 const chalk = new Chalk({ level: CI ? 0 : 2 });
 const n = CI ? '%0A' : '\n';
-const reference = `Reference: ${chalk.blue.underline('https://www.conventionalcommits.org/en/v1.0.0')}`;
+const reference = `Reference: ${chalk.blue.underline('https://www.conventionalcommits.org')}`;
 
 const formatText = (
   result: FormattableResult & WithInput,
