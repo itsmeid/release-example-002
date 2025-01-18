@@ -15,7 +15,8 @@ const generateCmd = {
   nextGitTag:
     'printf "%s" ${nextRelease.gitTag} > .semantic-release.nextRelease.gitTag',
   nextVersion:
-    'printf "%s" ${nextRelease.version} > .semantic-release.nextRelease.version'
+    'printf "%s" ${nextRelease.version} > .semantic-release.nextRelease.version',
+  type: 'printf "%s" ${nextRelease.type} > .semantic-release.nextRelease.type'
 };
 
 const getConfig = () => {
