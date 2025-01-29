@@ -70,10 +70,10 @@ jobs:
           nextVersion=$(cat .semantic-release.nextRelease.version)
           nextTag=$(cat .semantic-release.nextRelease.gitTag)
           releaseURL="https://github.com/${{ github.repository }}/releases/tag/$nextTag"
-          echo "## 🚀 Release Detail" >> $GITHUB_STEP_SUMMARY
+          echo "## 🚀 Release Report" >> $GITHUB_STEP_SUMMARY
           printf "%s Type: %s\n" "-" "$type" >> $GITHUB_STEP_SUMMARY
           printf "%s Version: %s\n" "-" "$nextVersion" >> $GITHUB_STEP_SUMMARY 
           printf "%s Tag: %s\n" "-" "$nextTag" >> $GITHUB_STEP_SUMMARY
-          printf "%s\n" "[Release URL]($releaseURL)" >> $GITHUB_STEP_SUMMARY
+          printf "\nSee this release at this %s\n\n" "[link]($releaseURL)." >> $GITHUB_STEP_SUMMARY
           echo "## 📝 Generated Notes" >> $GITHUB_STEP_SUMMARY
           cat RELEASE_NOTES.md >> $GITHUB_STEP_SUMMARY
