@@ -1,0 +1,11 @@
+name: Bug Report
+description: Report a bug/issue
+title: "[BUG] <title>"
+labels: ["bug", "Needs Triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please search open and closed issues before submitting a new one. 
+        Existing issues might contain information about workarounds or resolutions.
+

@@ -1,0 +1,11 @@
+name: Feature Request
+description: Suggest a feature
+title: "[FEAT] <title>"
+labels: ["enhancement", "Needs Triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please search open and closed issues before submitting a new one. 
+        Existing issues might contain information about workarounds or resolutions.
+

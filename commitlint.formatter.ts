@@ -7,59 +7,100 @@ import type {
 } from '@commitlint/types';
 import { Chalk } from 'chalk';
 
-const CI = [true, 'true', 1, '1'].includes(process.env.CI || '');
-const chalk = new Chalk({ level: CI ? 0 : 2 });
-const n = CI ? '%0A' : '\n';
+type TCommitResult = FormattableResult & WithInput;
+
+const { CHECK_PR_TITLE, CI } = process.env;
+const isCheckPrTitle = CHECK_PR_TITLE && ['1', 'true'].includes(CHECK_PR_TITLE);
+const isCI = CI && ['1', 'true'].includes(CI);
+const _n = isCI ? '%0A' : '\n';
+const chalk = new Chalk({ level: isCI ? 0 : 2 });
 const reference = `Reference: ${chalk.blue.underline('https://www.conventionalcommits.org')}`;
 
-const formatText = (
-  result: FormattableResult & WithInput,
+const newLine = (x = 1) => {
+  let result = '';
+
+  for (let i = 0; i < x; i++) {
+    result += _n;
+  }
+
+  return result;
+};
+
+const getReportHeader = (commitMesage: string, hasError: boolean) => {
+  const header = `${chalk.white.bold('✉️ Commit Message')}${newLine(2)}${chalk.white(commitMesage)}${newLine(2)}`;
+
+  if (isCI) {
+    const ann = hasError ? '::error' : '::warning';
+    return `${ann} ::${header.replaceAll('\n', _n)}`;
+  }
+
+  return header;
+};
+
+const getReportProblemList = (
+  commitResult: TCommitResult,
+  options: FormatOptions,
+  isValid: boolean
+) => {
+  if (isValid) {
+    const list = `${chalk.green('✔')} all good ${chalk.gray('[passed]')}`;
+    const summary = chalk.bold(
+      `${chalk.green('✔')} Summary: found 0 problems, 0 warnings`
+    );
+    return `${list}${newLine(2)}${summary}`;
+  }
+
+  if (isCheckPrTitle && commitResult.input) {
+    const filterProblem = (type: 'warnings' | 'errors') => {
+      return (
+        commitResult[type]?.filter((problem) => {
+          const name = problem.name as string;
+
+          if (name.includes('body-')) {
+            return false;
+          }
+
+          if (name.includes('footer-')) {
+            return false;
+          }
+
+          return true;
+        }) ?? []
+      );
+    };
+
+    commitResult.errors = filterProblem('errors');
+    commitResult.warnings = filterProblem('warnings');
+  }
+
+  return formatResult(commitResult, {
+    ...options,
+    verbose: false
+  })
+    .slice(0, -1)
+    .join(_n)
+    .replace('   found', ' Summary: found')
+    .replaceAll('   ', ' ');
+};
+
+const formatCommitReport = (
+  commitResult: TCommitResult,
   options: FormatOptions
 ) => {
-  const hasError = Boolean(result.errors?.length);
-  const hasWarning = Boolean(result.warnings?.length);
+  const commitMessage = commitResult.input || '';
+  const hasError = Boolean(commitResult.errors?.length);
+  const hasWarning = Boolean(commitResult.warnings?.length);
   const isValid = !hasError && !hasWarning;
 
-  if (CI && isValid) {
+  if (isCI && isValid) {
     return '';
   }
 
-  const getHeader = () => {
-    const commitMsg = chalk.white.bold(result.input);
-    const header = `${commitMsg}${n}${n}`;
+  const header = getReportHeader(commitMessage, hasError);
+  const problemList = getReportProblemList(commitResult, options, isValid);
+  const footer = `${newLine(2)}${reference}`;
 
-    if (CI) {
-      const ann = hasError ? '::error' : '::warning';
-      return `${ann} ::${header}`;
-    }
-
-    return header;
-  };
-
-  const getList = () => {
-    if (isValid) {
-      const list = `${chalk.green('✔')} all good ${chalk.gray('[passed]')}`;
-      const summary = chalk.bold(
-        `${chalk.green('✔')} Summary: found 0 problems, 0 warnings`
-      );
-      return `${list}${n}${n}${summary}`;
-    }
-
-    return formatResult(result, {
-      ...options,
-      verbose: false
-    })
-      .slice(0, -1)
-      .join(n)
-      .replace('   found', ' Summary: found')
-      .replaceAll('   ', ' ');
-  };
-
-  const header = getHeader();
-  const list = getList();
-  const footer = `${n}${n}${reference}`;
-
-  return `${header}${list}${footer}`;
+  return `${header}${problemList}${footer}`;
 };
 
 const formatter: Formatter = (report, options) => {
@@ -70,15 +111,15 @@ const formatter: Formatter = (report, options) => {
   }
 
   const temp: string[] = [];
-  for (const result of results) {
-    const formatted = formatText(result, options);
+  for (const commitReport of results) {
+    const formatted = formatCommitReport(commitReport, options);
 
     if (formatted) {
       temp.push(formatted);
     }
   }
 
-  const text = CI
+  const text = isCI
     ? temp.join('\n')
     : temp.join('\n\n--------------------------------------\n\n');
 
