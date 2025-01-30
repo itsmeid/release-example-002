@@ -23,11 +23,11 @@ printRed() {
 }
 
 printFailed() {
-  printf "%b %s\n" "$FAILED" "$1"
+  printf "%b %s (failed)\n" "$FAILED" "$1"
 }
 
 printPassed() {
-  printf "%b %s\n" "$PASSED" "$1"
+  printf "%b %s (passed)\n" "$PASSED" "$1"
 }
 
 printSkipped() {

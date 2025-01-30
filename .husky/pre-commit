@@ -47,13 +47,13 @@ fi
 # Check format
 printSubHeader "Check format on staged files..."
 bunx biome check --fix --staged --no-errors-on-unmatched --linter-enabled=false
-printPassed "Format is OK."
+printPassed "Format"
 echo
 
 # Check lint
 printSubHeader "Check lint on staged files..."
 bun biome lint --fix --staged --no-errors-on-unmatched
-printPassed "Lint is OK."
+printPassed "Lint"
 
 # Reindex staged files
 git update-index --again

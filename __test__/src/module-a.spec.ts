@@ -7,7 +7,7 @@ describe('module-a', () => {
   });
 
   it('longer duration', () => {
-    const temp = [];
+    const temp: string[] = [];
     const length = 1000000;
 
     for (let i = 0; i < length; i++) {

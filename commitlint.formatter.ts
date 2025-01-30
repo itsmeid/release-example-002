@@ -30,8 +30,10 @@ const getReportHeader = (commitMesage: string, hasError: boolean) => {
   const header = `${chalk.white.bold('✉️ Commit Message')}${newLine(2)}${chalk.white(commitMesage)}${newLine(2)}`;
 
   if (isCI) {
-    const ann = hasError ? '::error' : '::warning';
-    return `${ann} ::${header.replaceAll('\n', _n)}`;
+    const msgType = hasError ? '::error' : '::warning';
+    const ghAnn = `${msgType} ::${header.replaceAll('\n', _n)}`;
+
+    return ghAnn;
   }
 
   return header;

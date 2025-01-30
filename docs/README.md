@@ -14,6 +14,7 @@ Lorem ipsum dolor amet roin sollicitudin tellus vitae metus mollis tellus fermen
 [![CI](https://img.shields.io/github/actions/workflow/status/itsmeid/release-example-002/ci.yaml?style=flat-square&logo=github&label=CI&labelColor=383f47)](https://github.com/itsmeid/release-example-002/actions/workflows/ci.yaml)
 [![CodeQL](https://img.shields.io/github/actions/workflow/status/itsmeid/release-example-002/codeql.yaml?style=flat-square&logo=github&label=CodeQL&labelColor=383f47)](https://github.com/itsmeid/release-example-002/actions/workflows/codeql.yaml)
 [![Codecov](https://img.shields.io/codecov/c/github/itsmeid/release-example-002?style=flat-square&logo=codecov&label=Coverage&labelColor=383f47)](https://app.codecov.io/github/itsmeid/release-example-002)
+[![Type Coverage](https://img.shields.io/badge/dynamic/json.svg?style=flat-square&logo=typescript&label=Coverage&labelColor=383f47&color=44cc11&prefix=≥&suffix=%&query=$.typeCoverage.atLeast&uri=https://github.com/itsmeid/release-example-002/raw/main/package.json)](https://github.com/itsmeid/release-example-002)
 [![OpenSSF Scorecard](https://img.shields.io/ossf-scorecard/github.com/itsmeid/release-example-002?style=flat-square&label=ossf%20scorecard&labelColor=383f47)](https://scorecard.dev/viewer/?uri=github.com/itsmeid/release-example-002)
 
 </div>

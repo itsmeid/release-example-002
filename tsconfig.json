@@ -30,6 +30,7 @@
 
     // Others
     "baseUrl": ".",
+    "noEmitOnError": true,
     "noErrorTruncation": true
   },
   "include": ["**/*.ts"],

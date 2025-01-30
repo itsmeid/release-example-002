@@ -35,7 +35,7 @@
     "check:format": "bunx biome check --linter-enabled=false",
     "check:lint": "bunx biome lint",
     "check:spec": "bun test --coverage",
-    "check:type": "bunx tsc --noEmit --extendedDiagnostics",
+    "check:type": "bun --bun typecheck.ts",
     "fix": "bun fix:format && bun fix:lint",
     "fix:format": "bunx biome check --linter-enabled=false --fix",
     "fix:lint": "bunx biome lint --fix",
@@ -58,6 +58,7 @@
     "mentions-regex": "2.0.3",
     "parse-commit-message": "5.0.4",
     "semantic-release": "24.2.1",
+    "type-coverage": "2.29.7",
     "typedoc": "0.27.6",
     "typedoc-plugin-markdown": "4.4.1",
     "typescript": "5.7.3"
@@ -78,5 +79,8 @@
       "bun": "./dist/*/index.js",
       "default": "./dist/*/index.js"
     }
+  },
+  "typeCoverage": {
+    "atLeast": 100
   }
 }
