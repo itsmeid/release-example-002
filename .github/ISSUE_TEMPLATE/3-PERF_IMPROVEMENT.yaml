@@ -32,4 +32,12 @@ body:
     attributes:
       label: Impact of improvement
       description: What positive impact do you expect from these performance improvements?
-      placeholder: e.g., Faster execution time.
+      placeholder: e.g., Faster execution time and lower memory usage.
+
+  - type: textarea
+    id: notes
+    validations:
+      required: false
+    attributes:
+      label: Additional notes
+      description: Any other information that might help.
