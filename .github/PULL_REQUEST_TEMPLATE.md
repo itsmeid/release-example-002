@@ -22,10 +22,8 @@
 ## Checklist:
 
 - [ ] **I have read and follow [the project's contribution guidelines](https://github.com/itsmeid/release-example-002/blob/main/CONTRIBUTING.md)**
-- [ ] I have added or updated test files where necessary
-- [ ] I have run tests locally and confirmed that all tests pass
+- [ ] I have added or updated test files where necessary and confirmed that all tests pass
 - [ ] I have added or updated documentation where necessary
-- [ ] I have verified that my changes don't break existing functionality
 - [ ] I have rebased my branch with the latest base branch
 
 ## Breaking Change

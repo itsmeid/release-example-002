@@ -176,13 +176,16 @@ const typeCoverage = async (options: TOptions) => {
 
     if (coverage.details?.length) {
       for (const detail of coverage.details) {
+        const line = detail.line + 1;
+        const column = detail.character + 1;
+
         result += '\n';
 
-        const title = 'Untyped Error';
+        const title = 'Type Coverage Error';
         result += `::error title=${title}`;
         result += `,file=${detail.filePath}`;
-        result += `,line=${detail.line + 1},endLine=${detail.line + 1}`;
-        result += `,col=${detail.character + 1}`;
+        result += `,line=${line},endLine=${line}`;
+        result += `,col=${column}`;
         result += `::${detail.text.replaceAll(/\r?\n/g, '%0A')}`;
       }
 
@@ -195,8 +198,11 @@ const typeCoverage = async (options: TOptions) => {
 
     if (coverage.details?.length) {
       for (const detail of coverage.details) {
+        const line = detail.line + 1;
+        const column = detail.character + 1;
+
         result += '\n';
-        result += `${detail.filePath}(${detail.line + 1},${detail.character + 1}): ${detail.text}`;
+        result += `${chalk.cyanBright(detail.filePath)}(${chalk.yellow(line)},${chalk.yellow(column)}): ${detail.text}`;
       }
 
       result += '\n';
@@ -219,10 +225,10 @@ const main = async () => {
       detail: true,
       project: 'tsconfig.json',
       'ignore-as-assertion': true,
+      'ignore-type-assertion': true,
+      'ignore-empty-type': true,
       'ignore-catch': true,
-      'ignore-nested': false,
-      'show-relative-path': true,
-      'report-semantic-error': false
+      'show-relative-path': true
     });
   const typeCheckEnd = performance.now();
 
