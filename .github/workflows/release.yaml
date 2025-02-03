@@ -65,15 +65,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          bunx semantic-release
-          type=$(cat .semantic-release.nextRelease.type)
-          nextVersion=$(cat .semantic-release.nextRelease.version)
-          nextTag=$(cat .semantic-release.nextRelease.gitTag)
-          releaseURL="https://github.com/${{ github.repository }}/releases/tag/$nextTag"
-          echo "## 🚀 Release Report" >> $GITHUB_STEP_SUMMARY
-          printf "%s Type: %s\n" "-" "$type" >> $GITHUB_STEP_SUMMARY
-          printf "%s Version: %s\n" "-" "$nextVersion" >> $GITHUB_STEP_SUMMARY 
-          printf "%s Tag: %s\n" "-" "$nextTag" >> $GITHUB_STEP_SUMMARY
-          printf "\nSee this release at this %s\n\n" "[link]($releaseURL)." >> $GITHUB_STEP_SUMMARY
-          echo "## 📝 Generated Notes" >> $GITHUB_STEP_SUMMARY
-          cat RELEASE_NOTES.md >> $GITHUB_STEP_SUMMARY
+          bun release:with-output
+          cat .auto-release.summary.md >> $GITHUB_STEP_SUMMARY

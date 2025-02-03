@@ -1,6 +1,63 @@
 import { $, type ShellError } from 'bun';
 import { Chalk } from 'chalk';
 
+type TParsedError = {
+  file?: string;
+  line?: string;
+  column?: string;
+  errorCode?: string;
+  message?: string;
+};
+
+type TOptions = Partial<{
+  'at-least': number;
+  is: number;
+  cache: boolean;
+  debug: boolean;
+  detail: boolean;
+  'ignore-catch': boolean;
+  'ignore-files': string | string[];
+  project: string;
+  strict: boolean;
+  'suppress-error': boolean;
+  update: boolean;
+  'update-if-higher': boolean;
+  'ignore-unread': boolean;
+  'ignore-nested': boolean;
+  'ignore-as-assertion': boolean;
+  'ignore-type-assertion': boolean;
+  'ignore-non-null-assertion': boolean;
+  'ignore-object': boolean;
+  'ignore-empty-type': boolean;
+  'show-relative-path': boolean;
+  'history-file': string;
+  'no-detail-when-failed': boolean;
+  'report-semantic-error': boolean;
+  'cache-directory': string;
+  'not-only-in-cwd': boolean;
+  'json-output': boolean;
+  'report-unused-ignore': boolean;
+}>;
+
+type TCoverageResult = {
+  succeeded: boolean;
+  details?: {
+    character: number;
+    filePath: string;
+    line: number;
+    text: string;
+  }[];
+  atLeast: number;
+  atLeastFailed: boolean;
+  correctCount: number;
+  is?: number;
+  isFailed?: boolean;
+  percent: number;
+  percentString: string;
+  totalCount: number;
+  error?: string;
+};
+
 const { CI } = process.env;
 const isCI = CI === '1' || CI === 'true';
 const chalk = new Chalk({ level: isCI ? 0 : 2 });
@@ -43,6 +100,33 @@ const parseTscError = (log: string) => {
   }
 
   return null;
+};
+
+const parseTypeCheckOptions = (options: TOptions) => {
+  let result = '';
+
+  const add = (key: string, value: string | boolean | number) => {
+    if (value === false) {
+      return;
+    }
+
+    const val = value === true ? '' : ` ${value}`;
+    result += ` --${key}${val}`;
+  };
+
+  for (const [key, value] of Object.entries(options)) {
+    if (Array.isArray(value)) {
+      for (const v of value) {
+        add(key, `"${v}"`);
+      }
+
+      continue;
+    }
+
+    add(key, value);
+  }
+
+  return result;
 };
 
 const typeCheck = async () => {
@@ -107,40 +191,15 @@ const typeCheck = async () => {
 
   const isResultEmpty = !result;
   if (isResultEmpty) {
-    result = chalk.bold(`${chalk.green('✓')} No errors found in typecheck.`);
+    result = chalk.bold(
+      `${chalk.green('✓')} No errors were found in type checking.`
+    );
   }
 
   return {
     result,
     exitCode
   };
-};
-
-const parseTypeCheckOptions = (options: TOptions) => {
-  let result = '';
-
-  const add = (key: string, value: string | boolean | number) => {
-    if (value === false) {
-      return;
-    }
-
-    const val = value === true ? '' : ` ${value}`;
-    result += ` --${key}${val}`;
-  };
-
-  for (const [key, value] of Object.entries(options)) {
-    if (Array.isArray(value)) {
-      for (const v of value) {
-        add(key, `"${v}"`);
-      }
-
-      continue;
-    }
-
-    add(key, value);
-  }
-
-  return result;
 };
 
 const typeCoverage = async (options: TOptions) => {
@@ -216,7 +275,7 @@ const typeCoverage = async (options: TOptions) => {
 };
 
 const main = async () => {
-  const typeCheckStart = performance.now();
+  const startTime = performance.now();
   const { result: typeCheckResult, exitCode: typeCheckExitCode } =
     await typeCheck();
   const { result: typeCoverageResult, exitCode: typeCoverageExitCode } =
@@ -230,14 +289,14 @@ const main = async () => {
       'ignore-catch': true,
       'show-relative-path': true
     });
-  const typeCheckEnd = performance.now();
+  const endTime = performance.now();
 
   console.info(typeCheckResult);
   console.info('\n--------------------');
   console.info(typeCoverageResult);
 
   console.info(
-    `type check completed in ${chalk.bold(`${(typeCheckEnd - typeCheckStart).toFixed(2)}ms`)}.`
+    `type check completed in ${chalk.bold(`${(endTime - startTime).toFixed(2)}ms`)}.`
   );
 
   if (typeCheckExitCode !== 0) {
@@ -250,60 +309,3 @@ const main = async () => {
 };
 
 main();
-
-type TParsedError = {
-  file?: string;
-  line?: string;
-  column?: string;
-  errorCode?: string;
-  message?: string;
-};
-
-type TOptions = Partial<{
-  'at-least': number;
-  is: number;
-  cache: boolean;
-  debug: boolean;
-  detail: boolean;
-  'ignore-catch': boolean;
-  'ignore-files': string | string[];
-  project: string;
-  strict: boolean;
-  'suppress-error': boolean;
-  update: boolean;
-  'update-if-higher': boolean;
-  'ignore-unread': boolean;
-  'ignore-nested': boolean;
-  'ignore-as-assertion': boolean;
-  'ignore-type-assertion': boolean;
-  'ignore-non-null-assertion': boolean;
-  'ignore-object': boolean;
-  'ignore-empty-type': boolean;
-  'show-relative-path': boolean;
-  'history-file': string;
-  'no-detail-when-failed': boolean;
-  'report-semantic-error': boolean;
-  'cache-directory': string;
-  'not-only-in-cwd': boolean;
-  'json-output': boolean;
-  'report-unused-ignore': boolean;
-}>;
-
-type TCoverageResult = {
-  succeeded: boolean;
-  details?: {
-    character: number;
-    filePath: string;
-    line: number;
-    text: string;
-  }[];
-  atLeast: number;
-  atLeastFailed: boolean;
-  correctCount: number;
-  is?: number;
-  isFailed?: boolean;
-  percent: number;
-  percentString: string;
-  totalCount: number;
-  error?: string;
-};
