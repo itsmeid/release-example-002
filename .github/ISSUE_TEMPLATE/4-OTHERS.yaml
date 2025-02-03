@@ -1,12 +1,11 @@
 name: Others
 description: Others issue
-title: "[OTHERS] <title>"
-labels: ["others", "Needs Triage"]
+labels: [others]
 body:
   - type: markdown
     attributes:
       value: |
-        > Please search open and closed issues before submitting a new one.<br/>Existing issues might contain information about workarounds or resolutions.
+        > **Please search both open and closed issues before submitting a new one to avoid duplication**
 
   - type: textarea
     id: description

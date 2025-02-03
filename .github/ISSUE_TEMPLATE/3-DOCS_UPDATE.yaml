@@ -1,29 +1,38 @@
 name: Documentation Update
 description: Suggest an update or addition to the documentation.
-title: "[DOCS] <short title>"
-labels: ["documentation", "Needs Triage"]
+labels: [documentation]
 body:
+  - type: markdown
+    attributes:
+      value: |
+        > **Please search both open and closed issues before submitting a new one to avoid duplication**
+
+  - type: dropdown
+    id: addition
+    validations:
+      required: true
+    attributes:
+      label: Is this addition?
+      description: Select "Yes" if this is an addition.
+      default: 0
+      multiple: false
+      options:
+        - "No"
+        - "Yes"
+
   - type: textarea
     id: description
     validations:
       required: true
     attributes:
-      label: Description
-      description: A short description of the documentation update.
-      placeholder: What part of the documentation needs updating?
-
-  - type: textarea
-    validations:
-      required: true
-    attributes:
-      label: What should be added or changed?
+      label: Please explain what should be added or changed
       description: Describe the update or addition.
-      placeholder: e.g., Add an example for the "X" feature.
+      placeholder: e.g., Add an example for the X function.
 
   - type: textarea
+    id: notes
     validations:
       required: false
     attributes:
       label: Additional notes
       description: Any other information that might help.
-      placeholder: e.g., The example would clarify usage of the "X" feature.

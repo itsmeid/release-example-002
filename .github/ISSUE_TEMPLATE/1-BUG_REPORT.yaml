@@ -1,8 +1,12 @@
 name: Bug Report
 description: Report a bug/issue
-title: "[BUG] <title>"
-labels: ["bug", "Needs Triage"]
+labels: [bug]
 body:
+  - type: markdown
+    attributes:
+      value: |
+        > **Please search both open and closed issues before submitting a new one to avoid duplication**
+
   - type: textarea
     id: description
     validations:
@@ -61,7 +65,7 @@ body:
         ...
 
   - type: textarea
-    id: others
+    id: notes
     attributes:
       label: Additional notes
       description: Any other information that might help.

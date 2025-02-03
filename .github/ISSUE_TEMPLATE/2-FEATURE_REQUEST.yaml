@@ -1,8 +1,12 @@
 name: Feature Request
 description: Suggest a feature or enhancement
-title: "[FEAT] <title>"
-labels: ["enhancement", "Needs Triage"]
+labels: [enhancement]
 body:
+  - type: markdown
+    attributes:
+      value: |
+        > **Please search both open and closed issues before submitting a new one to avoid duplication**
+
   - type: dropdown
     id: new
     validations:
@@ -13,8 +17,8 @@ body:
       default: 0
       multiple: false
       options:
-        - No
-        - Yes
+        - "No"
+        - "Yes"
 
   - type: textarea
     id: description
@@ -22,21 +26,21 @@ body:
       required: true
     attributes:
       label: Please describe your feature request
-      description: A short description of your feature request.
-      placeholder: A concise description of the feature.
+      description: A clear and concise description about the feature.
+      placeholder: e.g., Add feature X.
 
   - type: textarea
     validations:
       required: true
     attributes:
-      label: What problem will this solve?
-      description: Explain the purpose of the feature.
+      label: Please provide the purpose of the feature
+      description: A clear and concise explanation about the feature purpose.
       placeholder: e.g., This will help users do X.
 
   - type: textarea
+    id: notes
     validations:
       required: false
     attributes:
       label: Additional notes
       description: Any other information that might help.
-      placeholder: e.g., Relevant background info or similar features.
