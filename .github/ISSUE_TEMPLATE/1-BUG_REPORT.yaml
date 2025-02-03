@@ -3,9 +3,65 @@ description: Report a bug/issue
 title: "[BUG] <title>"
 labels: ["bug", "Needs Triage"]
 body:
-  - type: markdown
+  - type: textarea
+    id: description
+    validations:
+      required: true
     attributes:
-      value: |
-        Please search open and closed issues before submitting a new one. 
-        Existing issues might contain information about workarounds or resolutions.
+      label: Please describe the bug
+      description: A clear and concise description of what the bug is.
+      placeholder: What is happening?
 
+  - type: textarea
+    id: exception-or-error
+    validations:
+      required: true
+    attributes:
+      label: Please provide error logs related to the bug
+      description: Captured exception or error logs.
+      placeholder: |
+        ...
+        ...
+        process exited with code 1.
+      render: bash
+
+  - type: textarea
+    id: reproduce-steps
+    validations:
+      required: true
+    attributes:
+      label: Please provide steps to Reproduce
+      description: Steps to reproduce the behavior.
+      placeholder: |
+        1.
+        2.
+        3.
+        ...
+
+  - type: textarea
+    id: expected
+    validations:
+      required: true
+    attributes:
+      label: Please provide the expected behavior
+      description: What you expected to happen.
+      placeholder: It should ...
+
+  - type: textarea
+    id: environment
+    validations:
+      required: true
+    attributes:
+      label: Please provide the environment you used
+      description: Provide details such as Bun version, Node version, OS, etc.
+      placeholder: |
+        Node: 20.15.1
+        Bun: 1.1.20
+        OS: linux x64
+        ...
+
+  - type: textarea
+    id: others
+    attributes:
+      label: Additional notes
+      description: Any other information that might help.

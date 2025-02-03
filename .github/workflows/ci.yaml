@@ -95,7 +95,7 @@ jobs:
           base-ref: ${{ github.event.before }}
           fail-on-severity: low
           comment-summary-in-pr: never
-          warn-on-openssf-scorecard-level: 4
+          warn-on-openssf-scorecard-level: 3
 
       - name: Run check (pull_request)
         if: github.event_name == 'pull_request'
@@ -104,7 +104,7 @@ jobs:
           allow-licenses: MIT, ISC, CC0-1.0, Apache-2.0, BSD-3-Clause, Unlicense
           fail-on-severity: low
           comment-summary-in-pr: on-failure
-          warn-on-openssf-scorecard-level: 4
+          warn-on-openssf-scorecard-level: 3
 
   format:
     name: Format check

@@ -1,11 +1,42 @@
 name: Feature Request
-description: Suggest a feature
+description: Suggest a feature or enhancement
 title: "[FEAT] <title>"
 labels: ["enhancement", "Needs Triage"]
 body:
-  - type: markdown
+  - type: dropdown
+    id: new
+    validations:
+      required: true
     attributes:
-      value: |
-        Please search open and closed issues before submitting a new one. 
-        Existing issues might contain information about workarounds or resolutions.
+      label: Is this new?
+      description: Select "Yes" if this is a new feature request.
+      default: 0
+      multiple: false
+      options:
+        - No
+        - Yes
 
+  - type: textarea
+    id: description
+    validations:
+      required: true
+    attributes:
+      label: Please describe your feature request
+      description: A short description of your feature request.
+      placeholder: A concise description of the feature.
+
+  - type: textarea
+    validations:
+      required: true
+    attributes:
+      label: What problem will this solve?
+      description: Explain the purpose of the feature.
+      placeholder: e.g., This will help users do X.
+
+  - type: textarea
+    validations:
+      required: false
+    attributes:
+      label: Additional notes
+      description: Any other information that might help.
+      placeholder: e.g., Relevant background info or similar features.

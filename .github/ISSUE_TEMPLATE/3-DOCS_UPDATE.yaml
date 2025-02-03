@@ -1,0 +1,29 @@
+name: Documentation Update
+description: Suggest an update or addition to the documentation.
+title: "[DOCS] <short title>"
+labels: ["documentation", "Needs Triage"]
+body:
+  - type: textarea
+    id: description
+    validations:
+      required: true
+    attributes:
+      label: Description
+      description: A short description of the documentation update.
+      placeholder: What part of the documentation needs updating?
+
+  - type: textarea
+    validations:
+      required: true
+    attributes:
+      label: What should be added or changed?
+      description: Describe the update or addition.
+      placeholder: e.g., Add an example for the "X" feature.
+
+  - type: textarea
+    validations:
+      required: false
+    attributes:
+      label: Additional notes
+      description: Any other information that might help.
+      placeholder: e.g., The example would clarify usage of the "X" feature.
