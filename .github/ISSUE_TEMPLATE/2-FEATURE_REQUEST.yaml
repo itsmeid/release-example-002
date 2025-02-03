@@ -12,8 +12,7 @@ body:
     validations:
       required: true
     attributes:
-      label: Is this new?
-      description: Select "Yes" if this is a new feature request.
+      label: Is this a new feature?
       default: 0
       multiple: false
       options:

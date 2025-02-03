@@ -1,0 +1,35 @@
+name: Performance Improvement
+description: Suggest improvements related to performance optimization.
+labels: [performance]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        > **Please search both open and closed issues before submitting a new one to avoid duplication**
+
+  - type: textarea
+    id: description
+    validations:
+      required: true
+    attributes:
+      label: Please describe the performance issue
+      description: Describe the performance issue you're experiencing or the area that needs improvement.
+      placeholder: e.g., The X takes longer than it should.
+
+  - type: textarea
+    id: improvement
+    validations:
+      required: false
+    attributes:
+      label: Suggested improvements
+      description: If you have suggestions for how to improve performance, please share them here.
+      placeholder: e.g., Update old logic from X with ...
+
+  - type: textarea
+    id: impact
+    validations:
+      required: false
+    attributes:
+      label: Impact of improvement
+      description: What positive impact do you expect from these performance improvements?
+      placeholder: e.g., Faster execution time.

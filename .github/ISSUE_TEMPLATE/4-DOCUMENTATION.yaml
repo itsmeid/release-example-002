@@ -1,4 +1,4 @@
-name: Documentation Update
+name: Documentation
 description: Suggest an update or addition to the documentation.
 labels: [documentation]
 body:
@@ -6,19 +6,6 @@ body:
     attributes:
       value: |
         > **Please search both open and closed issues before submitting a new one to avoid duplication**
-
-  - type: dropdown
-    id: addition
-    validations:
-      required: true
-    attributes:
-      label: Is this addition?
-      description: Select "Yes" if this is an addition.
-      default: 0
-      multiple: false
-      options:
-        - "No"
-        - "Yes"
 
   - type: textarea
     id: description
