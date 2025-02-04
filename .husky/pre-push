@@ -49,14 +49,14 @@ fi
 
 # Check spec and code coverage
 echo "> Check spec and code coverage..."
-bun check:type || exit $?
+bun --silent check:spec || exit $?
 printPassed "Spec"
 printPassed "Code coverage"
 echo
 
 # Check type definition
 echo "> Check type definition and type coverage..."
-bun check:type || exit $?
+bun --silent check:type || exit $?
 printPassed "Type definition"
 printPassed "Type coverage"
 
