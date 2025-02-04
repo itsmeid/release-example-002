@@ -49,7 +49,7 @@ fi
 
 # Check spec and code coverage
 echo "> Check spec and code coverage..."
-bun test --coverage || exit $?
+bun check:type || exit $?
 printPassed "Spec"
 printPassed "Code coverage"
 echo

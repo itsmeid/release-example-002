@@ -181,7 +181,8 @@ const generateSummaryContent = (nextRelease: NextRelease) => {
 - Type: ${nextRelease.type}
 - Version: ${nextRelease.version}
 - Tag: ${nextRelease.gitTag}
-See this release at this [link](${options.repositoryUrl}/releases/tag/${nextRelease.gitTag})
+
+See this release at this [link](${options.repositoryUrl}/releases/tag/${nextRelease.gitTag}).
 
 ## 📝 Generated Notes
 ${nextRelease.notes}`;
