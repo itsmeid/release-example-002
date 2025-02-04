@@ -64,6 +64,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: |
-          bun release:with-output
-          cat .auto-release.summary.md >> $GITHUB_STEP_SUMMARY
+        run: bun release:gha

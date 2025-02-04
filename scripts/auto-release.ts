@@ -6,10 +6,12 @@ import type { ParserOptions } from 'conventional-commits-parser';
 import type { NextRelease, Options, PluginSpec } from 'semantic-release';
 import semanticRelease from 'semantic-release';
 
-const { CI } = process.env;
+const { CI, GITHUB_ACTIONS } = process.env;
 const isCI = CI && ['1', 'true'].includes(CI);
+const isGHA = GITHUB_ACTIONS && ['1', 'true'].includes(GITHUB_ACTIONS);
 const isDryRun = !isCI || process.argv.includes('--dry-run');
 const isGenerateOutputFiles = process.argv.includes('--generate-output-files');
+const isGenerateGhaSummary = process.argv.includes('--generate-gha-summary');
 const chalk = new Chalk({ level: isCI ? 0 : 2 });
 
 const changelogPreset = await conventionalCommitsChangelog({
@@ -170,7 +172,6 @@ const options: Options = (() => {
     branches: ['main'],
     repositoryUrl: 'https://github.com/itsmeid/release-example-002',
     tagFormat: 'v${version}',
-    dryRun: isDryRun,
     plugins
   };
 })();
@@ -188,34 +189,55 @@ ${nextRelease.notes}`;
   return content;
 };
 
-const main = async () => {
-  const startTime = performance.now();
-
+const runRelease = async () => {
   try {
     const result = await semanticRelease(options);
 
     console.info('--------------------------------------------------\n');
 
-    if (result) {
-      const { commits, releases, lastRelease, nextRelease } = result;
+    if (!result) {
+      console.info('No release published.');
+      return;
+    }
 
-      console.info('Release Report\n');
-      console.info(`Type: ${nextRelease.type}`);
-      console.info(`Version: ${nextRelease.version}`);
-      console.info(`Tag: ${nextRelease.gitTag}`);
+    const { commits, releases, lastRelease, nextRelease } = result;
 
+    if (isGenerateGhaSummary || isGenerateOutputFiles) {
       const summary = generateSummaryContent(nextRelease);
 
-      if (isGenerateOutputFiles) {
-        await $`printf "%s" "${summary}" > .auto-release.summary.md`;
-        await $`echo ${JSON.stringify(commits)} > .auto-release.commits.json`;
-        await $`echo ${JSON.stringify(releases)} > .auto-release.releases.json`;
-        await $`echo ${JSON.stringify(lastRelease)} > .auto-release.lastRelease.json`;
-        await $`echo ${JSON.stringify(nextRelease)} > .auto-release.nextRelease.json`;
+      if (isGenerateGhaSummary) {
+        console.info('Generating github step summary...');
+        if (isGHA) {
+          await $`printf "%s" "${summary}" >> $GITHUB_STEP_SUMMARY`;
+          console.info('> $GITHUB_STEP_SUMMARY');
+        } else {
+          console.info('> GHA environment not detected. (skipped)');
+        }
+        console.info();
       }
-    } else {
-      console.info('No release published.');
+
+      if (isGenerateOutputFiles) {
+        console.info('Generating output files...');
+        await $`printf "%s" "${summary}" > .auto-release.summary.md`;
+        console.info('> .auto-release.summary.md');
+        await $`echo ${JSON.stringify(commits)} > .auto-release.commits.json`;
+        console.info('> .auto-release.commits.json');
+        await $`echo ${JSON.stringify(releases)} > .auto-release.releases.json`;
+        console.info('> .auto-release.releases.json');
+        await $`echo ${JSON.stringify(lastRelease)} > .auto-release.lastRelease.json`;
+        console.info('> .auto-release.lastRelease.json');
+        await $`echo ${JSON.stringify(nextRelease)} > .auto-release.nextRelease.json`;
+        console.info('> .auto-release.nextRelease.json');
+        console.info();
+      }
+
+      console.info('--------------------------------------------------\n');
     }
+
+    console.info(`${chalk.bold('Release Report')}\n`);
+    console.info(`Type: ${nextRelease.type}`);
+    console.info(`Version: ${nextRelease.version}`);
+    console.info(`Tag: ${nextRelease.gitTag}`);
   } catch (err) {
     if (err instanceof Error) {
       console.error(`${err.name}:`, `${chalk.white(err.message)}`);
@@ -223,7 +245,11 @@ const main = async () => {
 
     process.exit(1);
   }
+};
 
+const main = async () => {
+  const startTime = performance.now();
+  await runRelease();
   const endTime = performance.now();
   console.info(
     `\nauto release completed in ${chalk.bold(`${(endTime - startTime).toFixed(2)}ms`)}.`

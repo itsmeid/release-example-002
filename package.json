@@ -45,7 +45,8 @@
     "reinstall": "bun clean:deps && bun install",
     "release": "bun --bun ./scripts/auto-release.ts",
     "release:dry-run": "bun release --dry-run",
-    "release:with-output": "bun release --generate-output-file"
+    "release:gha": "bun release --generate-gha-summary",
+    "release:with-output": "bun release --generate-output-files"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
