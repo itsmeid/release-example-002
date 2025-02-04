@@ -1,7 +1,6 @@
 {
   "name": "release-example-002",
   "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-  "version": "1.0.0",
   "author": "itsmeid",
   "repository": {
     "type": "git",

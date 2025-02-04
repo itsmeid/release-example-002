@@ -1,4 +1,4 @@
-[release-example-002](https://github.com/itsmeid/release-example-002/tree/main/docs/README.md) / module-a
+[release-example-002](https://github.com/itsmeid/release-example-002/blob/main/docs/README.md) / module-a
 
 This is package documentation for module-a.
 
@@ -7,8 +7,6 @@ This is package documentation for module-a.
 ```ts
 function joinString<A, B>(a, b): `${A}${B}`
 ```
-
-Defined in: [module-a/module-a.ts:11](https://github.com/itsmeid/release-example-002/blob/main/src/module-a/module-a.ts#L11)
 
 Function that return combined string `A` and `B`.
 
@@ -111,9 +109,7 @@ The second characters value.
 function joinStr<A, B>(a, b): `${A}${B}`
 ```
 
-Defined in: [module-a/module-a.ts:21](https://github.com/itsmeid/release-example-002/blob/main/src/module-a/module-a.ts#L21)
-
-Alias of [joinString](https://github.com/itsmeid/release-example-002/tree/main/docs/module-a.md#joinString)
+Alias of [joinString](https://github.com/itsmeid/release-example-002/blob/main/docs/module-a.md#joinString)
 
 ### Type Parameters
 

@@ -58,8 +58,7 @@
   "treatValidationWarningsAsErrors": true,
 
   // resolution
-  "disableGit": false,
-  "gitRemote": "origin",
-  "gitRevision": "main",
-  "publicPath": "https://github.com/itsmeid/release-example-002/tree/main/docs"
+  "disableGit": true,
+  "disableSources": true,
+  "publicPath": "https://github.com/itsmeid/release-example-002/blob/main/docs"
 }

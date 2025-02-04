@@ -75,7 +75,7 @@ bun add -d release-example-002
 <tr>
 <td>
 
-[module-a](https://github.com/itsmeid/release-example-002/tree/main/docs/module-a.md)
+[module-a](https://github.com/itsmeid/release-example-002/blob/main/docs/module-a.md)
 
 </td>
 <td>
@@ -87,7 +87,7 @@ This is package documentation for module-a.
 <tr>
 <td>
 
-[module-b](https://github.com/itsmeid/release-example-002/tree/main/docs/module-b.md)
+[module-b](https://github.com/itsmeid/release-example-002/blob/main/docs/module-b.md)
 
 </td>
 <td>

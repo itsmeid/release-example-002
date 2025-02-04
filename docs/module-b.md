@@ -1,4 +1,4 @@
-[release-example-002](https://github.com/itsmeid/release-example-002/tree/main/docs/README.md) / module-b
+[release-example-002](https://github.com/itsmeid/release-example-002/blob/main/docs/README.md) / module-b
 
 This is package documentation for module-b.
 
@@ -7,8 +7,6 @@ This is package documentation for module-b.
 ```ts
 function joinObject<A, B>(a, b): A & B
 ```
-
-Defined in: [module-b/module-b.ts:11](https://github.com/itsmeid/release-example-002/blob/main/src/module-b/module-b.ts#L11)
 
 Function that return combined object `A` and `B`.
 
@@ -111,9 +109,7 @@ The second object value.
 function joinObj<A, B>(a, b): A & B
 ```
 
-Defined in: [module-b/module-b.ts:21](https://github.com/itsmeid/release-example-002/blob/main/src/module-b/module-b.ts#L21)
-
-Alias of [joinObject](https://github.com/itsmeid/release-example-002/tree/main/docs/module-b.md#joinObject)
+Alias of [joinObject](https://github.com/itsmeid/release-example-002/blob/main/docs/module-b.md#joinObject)
 
 ### Type Parameters
 
