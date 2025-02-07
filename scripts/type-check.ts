@@ -148,7 +148,7 @@ const typeCheck = async () => {
 
     for (const line of lines) {
       if (line) {
-        const parsedError = parseTscError(line.trim());
+        const parsedError = parseTscError(line.trimEnd());
 
         if (parsedError) {
           if (!isFirst) {
