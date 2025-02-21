@@ -178,7 +178,7 @@ jobs:
 
       - name: Upload test result
         if: github.repository_owner == 'itsmeid'
-        uses: codecov/test-results-action@4e79e65778be1cecd5df25e14af1eafb6df80ea9 # v1.0.2
+        uses: codecov/test-results-action@5c441a7bcc06f8706cde90192857d337c5dab8a6 # v1.0.4
         with:
           fail_ci_if_error: true
           token: ${{ secrets.CODECOV_TOKEN }}
